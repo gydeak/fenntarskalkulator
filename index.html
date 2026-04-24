@@ -132,15 +132,48 @@
       grid-template-columns: 1fr 1fr;
       gap: 24px;
       margin-bottom: 24px;
+
     }
 
     .two-col > * {
       min-width: 0;
     }
-    
+
     @media (max-width: 700px) {
       .two-col {
         grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 700px) {
+      td {
+        padding: 4px 4px;
+      }
+
+      th {
+        padding: 6px 6px;
+      }
+    }
+
+    @media (max-width: 700px) {
+      input[type="number"],
+      select {
+        width: 100%;
+        min-width: 0;
+        padding: 4px 6px;
+        font-size: 11px;
+      }
+    }
+
+    @media (max-width: 700px) {
+      td:last-child {
+        width: 30px;
+        padding: 2px;
+      }
+
+      td:last-child .btn {
+        padding: 2px 6px;
+        font-size: 9px;
       }
     }
 
