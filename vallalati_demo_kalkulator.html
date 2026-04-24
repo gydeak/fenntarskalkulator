@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vállalati Demográfiai Fenntarthatóság</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Lato:wght@300;400;700&display=swap');
+
+    :root {
+      --bg: #0f1117;
+      --surface: #171b26;
+      --surface2: #1e2436;
+      --border: #2a3050;
+      --accent: #4f9cf9;
+      --accent2: #f97b4f;
+      --gold: #e8c96a;
+      --text: #e8eaf2;
+      --text2: #8b93b0;
+      --green: #52c78a;
+      --red: #f96b6b;
+      --amber: #f9c44f;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Lato', sans-serif;
+      min-height: 100vh;
+      padding: 0 0 80px 0;
+      overflow-x: hidden;
+    }
+
+    /* HEADER */
+    .header {
+      background: linear-gradient(135deg, #0a0e1a 0%, #111827 60%, #0d1525 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 36px 40px 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      right: -80px;
+      width: 350px;
+      height: 350px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(79, 156, 249, 0.08) 0%, transparent 70%);
+    }
+
+    .header-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+      opacity: 0.85;
+    }
+
+    .header h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(22px, 4vw, 36px);
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    .header p {
+      font-size: 13px;
+      color: var(--text2);
+      max-width: 580px;
+      line-height: 1.6;
+    }
+
+    .reference-tag {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 4px 12px;
+      background: rgba(232, 201, 106, 0.12);
+      border: 1px solid rgba(232, 201, 106, 0.3);
+      border-radius: 20px;
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: var(--gold);
+      letter-spacing: 1px;
+    }
+
+    /* LAYOUT */
+    .main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 24px 0;
+    }
+
+    /* INFO BOX */
+    .info-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-bottom: 28px;
+      font-size: 13px;
+      color: var(--text2);
+      line-height: 1.7;
+    }
+
+    .info-box strong {
+      color: var(--text);
+    }
+
+    /* GRID */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 700px) {
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* CARD */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    .card-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text2);
+      margin-bottom: 18px;
+    }
+
+    /* TABLE INPUT */
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      margin-bottom: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    th {
+      background: var(--surface2);
+      color: var(--text2);
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 10px 14px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 6px 8px;
+      border-bottom: 1px solid rgba(42, 48, 80, 0.5);
+      vertical-align: middle;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .row-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--text2);
+      text-align: center;
+      width: 36px;
+    }
+
+    input[type="number"],
+    select {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      padding: 6px 10px;
+      width: 100%;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input[type="number"]:focus,
+    select:focus {
+      border-color: var(--accent);
+    }
+
+    input[type="number"] {
+      width: 90px;
+    }
+
+    select {
+      width: 90px;
+    }
+
+    .gender-badge {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .gender-f {
+      background: rgba(249, 123, 79, 0.15);
+      color: #f97b4f;
+      border: 1px solid rgba(249, 123, 79, 0.3);
+    }
+
+    .gender-m {
+      background: rgba(79, 156, 249, 0.1);
+      color: var(--accent);
+      border: 1px solid rgba(79, 156, 249, 0.25);
+    }
+
+    /* BUTTONS */
+    .btn-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 0;
+    }
+
+    .btn {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 9px 18px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: all 0.18s;
+      background: var(--surface2);
+      color: var(--text2);
+    }
+
+    .btn:hover {
+      border-color: var(--accent);
+      color: var(--text);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #0a0e1a;
+      border-color: var(--accent);
+      font-weight: 700;
+    }
+
+    .btn-primary:hover {
+      background: #6ab0ff;
+      color: #0a0e1a;
+    }
+
+    .btn-danger {
+      color: var(--red);
+    }
+
+    .btn-danger:hover {
+      border-color: var(--red);
+    }
+
+    /* RESULTS */
+    .results-section {
+      display: none;
+    }
+
+    .results-section.visible {
+      display: block;
+    }
+
+    /* BIG METER */
+    .meter-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px 40px;
+      text-align: center;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .meter-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--meter-color, var(--accent));
+      transition: background 0.5s;
+    }
+
+    .meter-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text2);
+      margin-bottom: 8px;
+    }
+
+    .meter-value {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(60px, 12vw, 100px);
+      line-height: 1;
+      color: var(--meter-color, var(--accent));
+      transition: color 0.5s;
+      margin-bottom: 4px;
+    }
+
+    .meter-sub {
+      font-size: 13px;
+      color: var(--text2);
+      margin-top: 8px;
+    }
+
+    .meter-verdict {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 6px 20px;
+      border-radius: 24px;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    /* STATS GRID */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .stat-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 16px;
+      text-align: center;
+    }
+
+    .stat-val {
+      font-family: 'DM Serif Display', serif;
+      font-size: 32px;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .stat-lbl {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text2);
+    }
+
+    /* BREAKDOWN TABLE */
+    .breakdown-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    .breakdown-title {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text2);
+      background: var(--surface2);
+    }
+
+    .breakdown-table th {
+      background: transparent;
+    }
+
+    .breakdown-table td {
+      padding: 9px 14px;
+    }
+
+    .pct-bar-cell {
+      width: 140px;
+    }
+
+    .pct-bar-bg {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 4px;
+      height: 6px;
+      overflow: hidden;
+    }
+
+    .pct-bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.6s ease;
+    }
+
+    .mono {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+    }
+
+    .chip {
+      display: inline-block;
+      padding: 1px 8px;
+      border-radius: 10px;
+      font-size: 10px;
+      font-family: 'DM Mono', monospace;
+    }
+
+    .chip-ok {
+      background: rgba(82, 199, 138, 0.15);
+      color: var(--green);
+    }
+
+    .chip-warn {
+      background: rgba(249, 196, 79, 0.15);
+      color: var(--amber);
+    }
+
+    .chip-bad {
+      background: rgba(249, 107, 107, 0.15);
+      color: var(--red);
+    }
+
+    /* CURVE SVG */
+    .curve-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+
+    .curve-card svg {
+      display: block;
+      width: 100%;
+    }
+
+    /* PASTE area */
+    .paste-area {
+      background: var(--bg);
+      border: 1px dashed var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--text2);
+      width: 100%;
+      height: 80px;
+      resize: vertical;
+      outline: none;
+      margin-bottom: 8px;
+    }
+
+    .paste-area:focus {
+      border-color: var(--accent);
+    }
+
+    .paste-hint {
+      font-size: 11px;
+      color: var(--text2);
+      margin-bottom: 6px;
+    }
+
+    /* DIVIDER */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 28px 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="header">
+    <div class="header-label">Fenntarthatósági Elemzés · 2025</div>
+    <h1>Vállalati Demográfiai<br>Fenntarthatóság</h1>
+    <p>A munkavállalók tényleges gyermekvállalási adatait az <em>1975-ös születésű norvég női kohorsz</em> tényleges
+      kumulatív termékenységi görbéjével hasonlítja össze. Az adatok forrása: Eurostat. Befejezett
+      termékenység&nbsp;=&nbsp;2,027.</p>
+    <div class="reference-tag">Referencia: NO 1975-ös kohorsz · TFR = 2,027</div>
+  </div>
+
+  <div class="main">
+    <div class="info-box" style="border-left-color: var(--accent2);">
+      <strong>Minta kérdőív használata:</strong><br><br>
+      1. Nyisd meg a linket:
+      <a href="https://docs.google.com/forms/d/1lDV-pbphH5HQkfH7gJyUtBVFNGofJ7lTXX-_pDTq7Ns/edit" target="_blank"
+        style="color:var(--accent);text-decoration:underline;">
+        https://forms.gle/x5v2vJj4WMMuAT9y5
+      </a><br>
+      2. Kattints a ⋮ menüre<br>
+      3. Válaszd: <strong>Másolat készítése</strong><br>
+      4. Nevezd át a másolt űrlapot, pl. "Cég neve - Demográfiai fenntarthatóság" és mentsd el.<br>
+      5. Oszd meg a kollégákkal, hogy töltsék ki a saját adataikkal (születési év, nem, gyerekek száma).<br>
+      6. Miután kitöltötték, Válaszok>Megtekintés a Táblázatokban<br>
+      7. A megnyíló Google Táblázatban Fájl>Letöltés>Vesszővel elválasztott értékek (.csv).<br>
+      8. A CSV fájlt nyisd meg szövegszerkesztőben, majd másold ki a második sortól a tartalmát és illeszd be a bal oldali "Tömeges beillesztés" mezőbe.<br><br>
+    </div>
+    <div class="info-box">
+      <strong>Módszertan:</strong> Minden nő esetén a jelenlegi kora alapján meghatározzuk, hogy a referencia kohorsz
+      ugyanilyen korú tagjai összesen hány gyereket szültek. Ez az <em>életkorhoz igazított elvárt gyerekszám</em>. A
+      tényleges és az elvárt arány adja az egyéni fenntarthatósági indexet. A vállalati mutató az összes nőre aggregált
+      értéket mutatja.
+    </div>
+
+    <!-- INPUT SECTION -->
+    <div class="two-col">
+      <div class="card">
+        <div class="card-title">Adatok manuális bevitele</div>
+        <div class="table-wrap">
+          <table id="inputTable">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Születési év</th>
+                <th>Nem</th>
+                <th>Gyerekek száma</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+        </div>
+        <div class="btn-row">
+          <button class="btn" onclick="addRow()">+ Sor hozzáadása</button>
+          <button class="btn btn-danger" onclick="clearTable()">Törlés</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Tömeges beillesztés (CSV / Excel másolat)</div>
+        <div class="paste-hint">Formátum: Időbélyeg, Születési éve, Neme, Gyermekek száma – soronként egy munkavállaló</div>
+        <textarea class="paste-area" id="pasteArea"
+          placeholder="Pl:&#10;2026.04.24. 15:56:29, 1985, Nő, 2&#10;2026.04.24. 15:56:29, 1990, Férfi, 1&#10;2026.04.24. 15:56:29, 1978, Nő, 3&#10;2026.04.24. 15:56:29, 1995, Nő, 0"></textarea>
+        <div class="btn-row">
+          <button class="btn btn-primary" onclick="parsePaste()">Beillesztés feldolgozása</button>
+        </div>
+        <hr class="divider" style="margin:20px 0">
+        <div class="card-title">Számítás futtatása</div>
+        <div class="btn-row">
+          <button class="btn btn-primary" onclick="calculate()" style="font-size:12px;padding:12px 28px;">
+            ▶ Fenntarthatóság számítása
+          </button>
+          <button class="btn" onclick="loadDemo()">Demo adatok</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="results-section" id="results">
+
+      <div class="meter-card" id="meterCard">
+        <div class="meter-label">Vállalati Demográfiai Fenntarthatósági Index</div>
+        <div class="meter-value" id="meterVal">—</div>
+        <div class="meter-sub" id="meterSub"></div>
+        <div class="meter-verdict" id="meterVerdict"></div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-box">
+          <div class="stat-val" id="statWomen">—</div>
+          <div class="stat-lbl">Nő munkavállalók</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val" id="statMen">—</div>
+          <div class="stat-lbl">Férfi munkavállalók</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val" id="statActual">—</div>
+          <div class="stat-lbl">Tényleges gyerekek</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val" id="statExpected">—</div>
+          <div class="stat-lbl">Elvárt gyerekek</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val" id="statAvgAge">—</div>
+          <div class="stat-lbl">Átlagéletkor (nők)</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val" id="statAvgKids">—</div>
+          <div class="stat-lbl">Átlag gyerek/nő</div>
+        </div>
+      </div>
+
+      <!-- CURVE -->
+      <div class="curve-card">
+        <div class="card-title" style="margin-bottom:12px;">Referencia görbe: NO 1975-ös kohorsz kumulatív termékenység
+          + vállalati pozíciók</div>
+        <svg id="curveSvg" viewBox="0 0 800 260" xmlns="http://www.w3.org/2000/svg"></svg>
+      </div>
+
+      <!-- BREAKDOWN -->
+      <div class="breakdown-wrap">
+        <div class="breakdown-title">Egyéni bontás — csak nők</div>
+        <table class="breakdown-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Születési év</th>
+              <th>Jelenlegi kor</th>
+              <th>Tényleges gyerek</th>
+              <th>Elvárt (korhoz igazított)</th>
+              <th>Egyéni index</th>
+              <th>Állapot</th>
+              <th class="pct-bar-cell"></th>
+            </tr>
+          </thead>
+          <tbody id="breakdownBody"></tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // ============================================================
+    // NORWEGIAN 1975 COHORT CUMULATIVE FERTILITY
+    // Source: gydeak/CumulativeCohortFertilityByYearOfBirth (GitHub)
+    // Tényleges adatpontok az életkor-kumulatív görbe alapján,
+    // normalizálás NÉLKÜL. Befejezett TFR ≈ 2.027 (49 éves kornál).
+    // Ez az utolsó norvég kohorsz, amely ~2.1 körüli befejezett
+    // termékenységet ért el, és 15–49 korig teljes adatsorral rendelkezik.
+    // ============================================================
+    const NO1975_CUMULATIVE = {
+      15: 0.000,
+      16: 0.000,
+      17: 0.002,
+      18: 0.008,
+      19: 0.022,
+      20: 0.050,
+      21: 0.092,
+      22: 0.146,
+      23: 0.211,
+      24: 0.283,
+      25: 0.369,
+      26: 0.467,
+      27: 0.578,
+      28: 0.695,
+      29: 0.825,
+      30: 0.964,
+      31: 1.106,
+      32: 1.249,
+      33: 1.382,
+      34: 1.504,
+      35: 1.617,
+      36: 1.713,
+      37: 1.795,
+      38: 1.859,
+      39: 1.908,
+      40: 1.948,
+      41: 1.977,
+      42: 1.997,
+      43: 2.010,
+      44: 2.017,
+      45: 2.021,
+      46: 2.024,
+      47: 2.025,
+      48: 2.026,
+      49: 2.027,
+    };
+
+    const COMPLETED_TFR = 2.027; // csak tájékoztató, nem használjuk normalizálásra
+
+    // Tényleges kumulatív érték életkor alapján – nincs normalizálás
+    function getExpected(age) {
+      const clampedAge = Math.max(15, Math.min(49, age));
+      return NO1975_CUMULATIVE[clampedAge] || 0;
+    }
+
+    // ============================================================
+    // TABLE MANAGEMENT
+    // ============================================================
+    let rows = [];
+    let rowCounter = 0;
+    const CURRENT_YEAR = 2025;
+
+    function addRow(birthYear = '', gender = 'Nő', children = '') {
+      rowCounter++;
+      const id = rowCounter;
+      rows.push(id);
+      const tbody = document.getElementById('tableBody');
+      const tr = document.createElement('tr');
+      tr.id = 'row_' + id;
+      tr.innerHTML = `
+    <td class="row-num">${rows.length}</td>
+    <td><input type="number" min="1940" max="2005" value="${birthYear}" id="by_${id}" placeholder="pl. 1985" style="width:90px"></td>
+    <td>
+      <select id="gen_${id}">
+        <option value="Nő" ${gender === 'Nő' ? 'selected' : ''}>🚺 Nő</option>
+        <option value="Férfi" ${gender === 'Férfi' ? 'selected' : ''}>🚹 Férfi</option>
+      </select>
+    </td>
+    <td><input type="number" min="0" max="15" value="${children}" id="ch_${id}" placeholder="0" style="width:70px"></td>
+    <td><button class="btn btn-danger" style="padding:4px 10px;font-size:10px;" onclick="removeRow(${id})">✕</button></td>
+  `;
+      tbody.appendChild(tr);
+    }
+
+    function removeRow(id) {
+      rows = rows.filter(r => r !== id);
+      const tr = document.getElementById('row_' + id);
+      if (tr) tr.remove();
+      // renumber
+      document.querySelectorAll('#tableBody tr .row-num').forEach((el, i) => el.textContent = i + 1);
+    }
+
+    function clearTable() {
+      rows = [];
+      rowCounter = 0;
+      document.getElementById('tableBody').innerHTML = '';
+      document.getElementById('results').classList.remove('visible');
+    }
+
+    function parsePaste(){
+      const text = document.getElementById('pasteArea').value.trim();
+      if (!text) return;
+
+      const lines = text.split("\n");
+
+      let added = 0;
+
+      lines.forEach((line, index) => {
+        // fejléc kihagyása
+        if (index === 0 && line.toLowerCase().includes('időbélyeg')) return;
+
+        const parts = line.split(/[,\t]+/).map(x => x.trim());
+
+        if (parts.length < 4) return;
+
+        // új sorrend:
+        // [0] Időbélyeg
+        // [1] Születési év
+        // [2] Nem
+        // [3] Gyerekek
+
+        const by = parseInt(parts[1]);
+        const raw = parts[2].toLowerCase();
+        const ch = parseInt(parts[3]) || 0;
+
+        let gen;
+        if (raw.startsWith('n')) gen = 'Nő';
+        else if (raw.startsWith('f')) gen = 'Férfi';
+        else return;
+
+        if (!isNaN(by)) {
+          addRow(by, gen, ch);
+          added++;
+        }
+      });
+
+      document.getElementById('pasteArea').value = '';
+
+      alert(`${added} sor beolvasva.`);
+    }
+
+    function loadDemo() {
+      clearTable();
+      const demo = [
+        [1972, 'Nő', 2], [1975, 'Nő', 3], [1978, 'Nő', 1], [1980, 'Nő', 2], [1982, 'Nő', 0],
+        [1985, 'Nő', 1], [1988, 'Nő', 2], [1990, 'Nő', 0], [1992, 'Nő', 1], [1995, 'Nő', 0],
+        [1998, 'Nő', 0], [2000, 'Nő', 0], [1975, 'Férfi', 2], [1980, 'Férfi', 1], [1988, 'Férfi', 3],
+        [1976, 'Nő', 4], [1983, 'Nő', 2], [1991, 'Nő', 1], [1970, 'Nő', 3], [1968, 'Nő', 2]
+      ];
+      demo.forEach(([by, gen, ch]) => addRow(by, gen, ch));
+    }
+
+    // ============================================================
+    // CALCULATE
+    // ============================================================
+    function calculate() {
+      const data = [];
+      rows.forEach(id => {
+        const by = parseInt(document.getElementById('by_' + id)?.value);
+        const gen = document.getElementById('gen_' + id)?.value;
+        const ch = parseInt(document.getElementById('ch_' + id)?.value) || 0;
+        if (!isNaN(by) && by > 1940 && by <= 2005 && gen) {
+          data.push({ by, gen, ch });
+        }
+      });
+
+      if (data.length === 0) {
+        alert('Kérjük, adjon meg legalább egy munkavállalót!');
+        return;
+      }
+
+      const women = data.filter(d => d.gen === 'Nő');
+      const men = data.filter(d => d.gen === 'Férfi');
+
+      if (women.length === 0) {
+        alert('Nincs nő munkavállaló az adatokban – a számítás csak nőkre vonatkozik.');
+        return;
+      }
+
+      let totalActual = 0;
+      let totalExpected = 0;
+      const womenDetails = [];
+
+      women.forEach((w, i) => {
+        const age = CURRENT_YEAR - w.by;
+        const expected = getExpected(age);
+        const actual = w.ch;
+        const ratio = expected > 0 ? (actual / expected) : (actual > 0 ? 1 : 1);
+        totalActual += actual;
+        totalExpected += expected;
+        womenDetails.push({ ...w, age, expected, actual, ratio, idx: i + 1 });
+      });
+
+      const corporateIndex = totalExpected > 0 ? (totalActual / totalExpected) * 100 : 0;
+
+      // Update meter
+      const meterVal = document.getElementById('meterVal');
+      const meterCard = document.getElementById('meterCard');
+      const meterSub = document.getElementById('meterSub');
+      const meterVerdict = document.getElementById('meterVerdict');
+
+      meterVal.textContent = Math.round(corporateIndex) + '%';
+
+      let color, verdict;
+      if (corporateIndex >= 95) { color = 'var(--green)'; verdict = '✓ Fenntartható – reprodukciós szint körül'; }
+      else if (corporateIndex >= 70) { color = 'var(--amber)'; verdict = '⚠ Csökkent – enyhe demográfiai deficit'; }
+      else if (corporateIndex >= 45) { color = 'var(--accent2)'; verdict = '▼ Alacsony – jelentős demográfiai deficit'; }
+      else { color = 'var(--red)'; verdict = '✗ Kritikus – súlyos demográfiai hiány'; }
+
+      meterCard.style.setProperty('--meter-color', color);
+      meterVal.style.color = color;
+      meterSub.innerHTML = `Tényleges: <strong>${totalActual}</strong> gyerek &nbsp;·&nbsp; Elvárt (arányos): <strong>${totalExpected.toFixed(1)}</strong> gyerek`;
+      meterVerdict.textContent = verdict;
+      meterVerdict.style.color = color;
+
+      // Stats
+      document.getElementById('statWomen').textContent = women.length;
+      document.getElementById('statMen').textContent = men.length;
+      document.getElementById('statActual').textContent = totalActual;
+      document.getElementById('statExpected').textContent = totalExpected.toFixed(1);
+      const avgAge = women.reduce((s, w) => s + (CURRENT_YEAR - w.by), 0) / women.length;
+      document.getElementById('statAvgAge').textContent = avgAge.toFixed(1);
+      document.getElementById('statAvgKids').textContent = (totalActual / women.length).toFixed(2);
+
+      // Breakdown table
+      const tbody = document.getElementById('breakdownBody');
+      tbody.innerHTML = '';
+      womenDetails.sort((a, b) => a.by - b.by).forEach((w, i) => {
+        const pct = Math.min(w.ratio * 100, 200);
+        const chipClass = w.ratio >= 0.95 ? 'chip-ok' : w.ratio >= 0.6 ? 'chip-warn' : 'chip-bad';
+        const chipText = w.ratio >= 0.95 ? 'OK' : w.ratio >= 0.6 ? 'Alacsony' : 'Kritikus';
+        const barColor = w.ratio >= 0.95 ? 'var(--green)' : w.ratio >= 0.6 ? 'var(--amber)' : 'var(--red)';
+        tbody.innerHTML += `
+      <tr>
+        <td class="mono row-num">${i + 1}</td>
+        <td class="mono">${w.by}</td>
+        <td class="mono">${w.age} év</td>
+        <td class="mono">${w.actual}</td>
+        <td class="mono">${w.expected.toFixed(2)}</td>
+        <td class="mono" style="color:${barColor}">${Math.round(w.ratio * 100)}%</td>
+        <td><span class="chip ${chipClass}">${chipText}</span></td>
+        <td class="pct-bar-cell">
+          <div class="pct-bar-bg">
+            <div class="pct-bar-fill" style="width:${Math.min(pct, 100)}%;background:${barColor}"></div>
+          </div>
+        </td>
+      </tr>
+    `;
+      });
+
+      // Draw curve
+      drawCurve(womenDetails);
+
+      document.getElementById('results').classList.add('visible');
+      document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // ============================================================
+    // SVG CURVE
+    // ============================================================
+    function drawCurve(womenDetails) {
+      const svg = document.getElementById('curveSvg');
+      const W = 800, H = 260;
+      const pad = { left: 52, right: 24, top: 20, bottom: 36 };
+      const ages = Array.from({ length: 35 }, (_, i) => i + 15); // 15..49
+
+      // scaled cumulative
+      const curveY = ages.map(a => NO1975_CUMULATIVE[a] || 0);
+
+      const xScale = a => pad.left + (a - 15) / 34 * (W - pad.left - pad.right);
+      const yScale = v => H - pad.bottom - v / 2.1 * (H - pad.top - pad.bottom);
+
+      let html = '';
+
+      // Grid lines
+      [0, 0.5, 1.0, 1.5, 2.0].forEach(v => {
+        const y = yScale(v);
+        html += `<line x1="${pad.left}" y1="${y}" x2="${W - pad.right}" y2="${y}" stroke="#2a3050" stroke-width="1"/>`;
+        html += `<text x="${pad.left - 6}" y="${y + 4}" font-size="9" fill="#8b93b0" text-anchor="end" font-family="monospace">${v.toFixed(1)}</text>`;
+      });
+      [15, 20, 25, 30, 35, 40, 45, 49].forEach(a => {
+        const x = xScale(a);
+        html += `<text x="${x}" y="${H - pad.bottom + 14}" font-size="9" fill="#8b93b0" text-anchor="middle" font-family="monospace">${a}</text>`;
+        html += `<line x1="${x}" y1="${H - pad.bottom}" x2="${x}" y2="${H - pad.bottom + 5}" stroke="#2a3050" stroke-width="1"/>`;
+      });
+
+      // Axis labels
+      html += `<text x="${pad.left + (W - pad.left - pad.right) / 2}" y="${H - 2}" font-size="9" fill="#8b93b0" text-anchor="middle" font-family="monospace">Életkor</text>`;
+      html += `<text x="12" y="${H / 2}" font-size="9" fill="#8b93b0" text-anchor="middle" transform="rotate(-90 12 ${H / 2})" font-family="monospace">Kum. TFR</text>`;
+
+      // Reference line at 2.027 (befejezett TFR)
+      const y20 = yScale(2.027);
+      html += `<line x1="${pad.left}" y1="${y20}" x2="${W - pad.right}" y2="${y20}" stroke="rgba(232,201,106,0.35)" stroke-width="1" stroke-dasharray="4,3"/>`;
+      html += `<text x="${W - pad.right + 2}" y="${y20 + 4}" font-size="8" fill="rgba(232,201,106,0.7)" font-family="monospace">2.027</text>`;
+
+      // Curve path
+      const pathD = ages.map((a, i) => {
+        const x = xScale(a);
+        const y = yScale(curveY[i]);
+        return (i === 0 ? 'M' : 'L') + `${x.toFixed(1)},${y.toFixed(1)}`;
+      }).join(' ');
+
+      html += `<path d="${pathD}" fill="none" stroke="rgba(79,156,249,0.7)" stroke-width="2.5" stroke-linejoin="round"/>`;
+
+      // Area under curve
+      const firstX = xScale(15), lastX = xScale(49), baseY = H - pad.bottom;
+      const areaPath = `M${firstX},${baseY} ` + ages.map((a, i) => `L${xScale(a).toFixed(1)},${yScale(curveY[i]).toFixed(1)}`).join(' ') + ` L${lastX},${baseY} Z`;
+      html += `<path d="${areaPath}" fill="rgba(79,156,249,0.06)"/>`;
+
+      // Worker dots
+      womenDetails.forEach(w => {
+        const age = w.age;
+        if (age < 15 || age > 49) return;
+        const x = xScale(age);
+        const actual = w.actual;
+        const expected = w.expected;
+        const yExp = yScale(expected);
+        const yAct = yScale(Math.min(actual, 2.1));
+
+        // Vertical connector
+        html += `<line x1="${x}" y1="${yExp}" x2="${x}" y2="${yAct}" stroke="rgba(249,123,79,0.3)" stroke-width="1"/>`;
+
+        // Expected position on curve (circle)
+        html += `<circle cx="${x}" cy="${yExp}" r="4" fill="var(--surface)" stroke="rgba(79,156,249,0.9)" stroke-width="2"/>`;
+
+        // Actual dot
+        const color = w.ratio >= 0.95 ? '#52c78a' : w.ratio >= 0.6 ? '#f9c44f' : '#f96b6b';
+        html += `<circle cx="${x}" cy="${yAct}" r="5" fill="${color}" opacity="0.85"/>`;
+      });
+
+      // Legend
+      const lx = W - 200, ly = pad.top + 10;
+      html += `<rect x="${lx}" y="${ly}" width="180" height="62" rx="5" fill="rgba(23,27,38,0.9)" stroke="#2a3050" stroke-width="1"/>`;
+      html += `<line x1="${lx + 10}" y1="${ly + 16}" x2="${lx + 32}" y2="${ly + 16}" stroke="rgba(79,156,249,0.7)" stroke-width="2.5"/>`;
+      html += `<text x="${lx + 38}" y="${ly + 20}" font-size="9" fill="#8b93b0" font-family="monospace">NO 1975 kohorsz görbe</text>`;
+      html += `<circle cx="${lx + 20}" cy="${ly + 34}" r="4" fill="var(--surface)" stroke="rgba(79,156,249,0.9)" stroke-width="2"/>`;
+      html += `<text x="${lx + 38}" y="${ly + 38}" font-size="9" fill="#8b93b0" font-family="monospace">Elvárt (korhoz igazított)</text>`;
+      html += `<circle cx="${lx + 20}" cy="${ly + 52}" r="5" fill="#52c78a" opacity="0.85"/>`;
+      html += `<text x="${lx + 38}" y="${ly + 56}" font-size="9" fill="#8b93b0" font-family="monospace">Tényleges gyerekszám</text>`;
+
+      svg.innerHTML = html;
+    }
+
+    // Init: 5 empty rows
+    window.onload = () => {
+      for (let i = 0; i < 5; i++) addRow();
+    };
+  </script>
+</body>
+
+</html>
