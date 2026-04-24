@@ -132,7 +132,6 @@
       grid-template-columns: 1fr 1fr;
       gap: 24px;
       margin-bottom: 24px;
-
     }
 
     .two-col > * {
@@ -145,43 +144,81 @@
       }
     }
 
+    /* TABLE alapértelmezett input méretek (desktop) */
+    input[type="number"] {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      padding: 6px 10px;
+      width: 90px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    select {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      padding: 6px 10px;
+      width: 90px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input[type="number"]:focus,
+    select:focus {
+      border-color: var(--accent);
+    }
+
+    /* MOBIL táblázat javítások */
     @media (max-width: 700px) {
       td {
-        padding: 4px 0px;
+        padding: 3px 2px;
       }
 
       th {
-        padding: 6px 0px;
+        padding: 6px 3px;
       }
-    }
 
-    @media (max-width: 700px) {
+      /* Oszlopszélességek mobilon */
+      th:nth-child(1), td:nth-child(1) { width: 22px; }   /* # */
+      th:nth-child(2), td:nth-child(2) { width: 66px; }   /* születési év */
+      th:nth-child(3), td:nth-child(3) { width: 600px; }   /* nem */
+      th:nth-child(4), td:nth-child(4) { width: 50px; }   /* gyerekek */
+      th:nth-child(5), td:nth-child(5) { width: 26px; }   /* törlés gomb */
+
+      /* Input és select mobilon – teljes szélességű a cellán belül */
       input[type="number"],
       select {
         width: 100%;
         min-width: 0;
-        padding: 4px 0px;
+        padding: 4px 3px;
         font-size: 11px;
       }
-    }
 
-    @media (max-width: 700px) {
+      /* Select: eltávolítjuk a natív nyilat, helyet spórolunk */
+      select {
+        -webkit-appearance: none;
+        appearance: none;
+        padding: 4px 2px;
+        text-align: center;
+      }
+
       td:last-child {
-        width: 30px;
+        width: 26px;
         padding: 2px;
       }
 
       td:last-child .btn {
-        padding: 2px 0px;
+        padding: 2px 4px;
         font-size: 9px;
       }
-    }
-
-    @media (max-width: 700px) {
-      th:nth-child(1), td:nth-child(1) { width: 28px; }  /* # */
-      th:nth-child(2), td:nth-child(2) { width: 70px; }  /* születési év */
-      th:nth-child(3), td:nth-child(3) { width: 60px; }  /* nem */
-      th:nth-child(4), td:nth-child(4) { width: 50px; }  /* gyerek */
     }
 
     /* CARD */
@@ -250,33 +287,6 @@
       width: 36px;
     }
 
-    input[type="number"],
-    select {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      color: var(--text);
-      font-family: 'DM Mono', monospace;
-      font-size: 12px;
-      padding: 6px 10px;
-      width: 100%;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    input[type="number"]:focus,
-    select:focus {
-      border-color: var(--accent);
-    }
-
-    input[type="number"] {
-      width: 90px;
-    }
-
-    select {
-      width: 90px;
-    }
-
     .gender-badge {
       display: inline-block;
       padding: 2px 10px;
@@ -304,7 +314,7 @@
       flex-wrap: wrap;
       margin-bottom: 0;
     }
-    
+
     .calc-buttons {
       flex-direction: column;
       align-items: flex-start;
@@ -617,9 +627,9 @@
             <thead>
               <tr>
                 <th>#</th>
-                <th>Születési év</th>
+                <th>Szül. év</th>
                 <th>Nem</th>
-                <th>Gyerekek száma</th>
+                <th>Gyerek</th>
                 <th></th>
               </tr>
             </thead>
@@ -721,11 +731,6 @@
   <script>
     // ============================================================
     // NORWEGIAN 1975 COHORT CUMULATIVE FERTILITY
-    // Source: gydeak/CumulativeCohortFertilityByYearOfBirth (GitHub)
-    // Tényleges adatpontok az életkor-kumulatív görbe alapján,
-    // normalizálás NÉLKÜL. Befejezett TFR ≈ 2.027 (49 éves kornál).
-    // Ez az utolsó norvég kohorsz, amely ~2.1 körüli befejezett
-    // termékenységet ért el, és 15–49 korig teljes adatsorral rendelkezik.
     // ============================================================
     const NO1975_CUMULATIVE = {
       15: 0.000,
@@ -765,9 +770,8 @@
       49: 2.027,
     };
 
-    const COMPLETED_TFR = 2.027; // csak tájékoztató, nem használjuk normalizálásra
+    const COMPLETED_TFR = 2.027;
 
-    // Tényleges kumulatív érték életkor alapján – nincs normalizálás
     function getExpected(age) {
       const clampedAge = Math.max(15, Math.min(49, age));
       return NO1975_CUMULATIVE[clampedAge] || 0;
@@ -788,17 +792,17 @@
       const tr = document.createElement('tr');
       tr.id = 'row_' + id;
       tr.innerHTML = `
-    <td class="row-num">${rows.length}</td>
-    <td><input type="number" min="1940" max="2005" value="${birthYear}" id="by_${id}" placeholder="pl. 1985" style="width:110px"></td>
-    <td>
-      <select id="gen_${id}">
-        <option value="Nő" ${gender === 'Nő' ? 'selected' : ''}>🚺 Nő</option>
-        <option value="Férfi" ${gender === 'Férfi' ? 'selected' : ''}>🚹 Férfi</option>
-      </select>
-    </td>
-    <td><input type="number" min="0" max="15" value="${children}" id="ch_${id}" placeholder="0" style="width:70px"></td>
-    <td><button class="btn btn-danger" style="padding:4px 10px;font-size:10px;" onclick="removeRow(${id})">✕</button></td>
-  `;
+        <td class="row-num">${rows.length}</td>
+        <td><input type="number" min="1940" max="2005" value="${birthYear}" id="by_${id}" placeholder="1985"></td>
+        <td>
+          <select id="gen_${id}">
+            <option value="Nő" ${gender === 'Nő' ? 'selected' : ''}>Nő</option>
+            <option value="Férfi" ${gender === 'Férfi' ? 'selected' : ''}>Férfi</option>
+          </select>
+        </td>
+        <td><input type="number" min="0" max="15" value="${children}" id="ch_${id}" placeholder="0"></td>
+        <td><button class="btn btn-danger" style="padding:4px 10px;font-size:10px;" onclick="removeRow(${id})">✕</button></td>
+      `;
       tbody.appendChild(tr);
     }
 
@@ -806,7 +810,6 @@
       rows = rows.filter(r => r !== id);
       const tr = document.getElementById('row_' + id);
       if (tr) tr.remove();
-      // renumber
       document.querySelectorAll('#tableBody tr .row-num').forEach((el, i) => el.textContent = i + 1);
     }
 
@@ -817,27 +820,18 @@
       document.getElementById('results').classList.remove('visible');
     }
 
-    function parsePaste(){
+    function parsePaste() {
       const text = document.getElementById('pasteArea').value.trim();
       if (!text) return;
 
       const lines = text.split("\n");
-
       let added = 0;
 
       lines.forEach((line, index) => {
-        // fejléc kihagyása
         if (index === 0 && line.toLowerCase().includes('időbélyeg')) return;
 
         const parts = line.split(/[,\t]+/).map(x => x.trim());
-
         if (parts.length < 4) return;
-
-        // új sorrend:
-        // [0] Időbélyeg
-        // [1] Születési év
-        // [2] Nem
-        // [3] Gyerekek
 
         const by = parseInt(parts[1]);
         const raw = parts[2].toLowerCase();
@@ -855,7 +849,6 @@
       });
 
       document.getElementById('pasteArea').value = '';
-
       alert(`${added} sor beolvasva.`);
     }
 
@@ -913,7 +906,6 @@
 
       const corporateIndex = totalExpected > 0 ? (totalActual / totalExpected) * 100 : 0;
 
-      // Update meter
       const meterVal = document.getElementById('meterVal');
       const meterCard = document.getElementById('meterCard');
       const meterSub = document.getElementById('meterSub');
@@ -933,7 +925,6 @@
       meterVerdict.textContent = verdict;
       meterVerdict.style.color = color;
 
-      // Stats
       document.getElementById('statWomen').textContent = women.length;
       document.getElementById('statMen').textContent = men.length;
       document.getElementById('statActual').textContent = totalActual;
@@ -942,7 +933,6 @@
       document.getElementById('statAvgAge').textContent = avgAge.toFixed(1);
       document.getElementById('statAvgKids').textContent = (totalActual / women.length).toFixed(2);
 
-      // Breakdown table
       const tbody = document.getElementById('breakdownBody');
       tbody.innerHTML = '';
       womenDetails.sort((a, b) => a.by - b.by).forEach((w, i) => {
@@ -951,24 +941,23 @@
         const chipText = w.ratio >= 0.95 ? 'OK' : w.ratio >= 0.6 ? 'Alacsony' : 'Kritikus';
         const barColor = w.ratio >= 0.95 ? 'var(--green)' : w.ratio >= 0.6 ? 'var(--amber)' : 'var(--red)';
         tbody.innerHTML += `
-      <tr>
-        <td class="mono row-num">${i + 1}</td>
-        <td class="mono">${w.by}</td>
-        <td class="mono">${w.age} év</td>
-        <td class="mono">${w.actual}</td>
-        <td class="mono">${w.expected.toFixed(2)}</td>
-        <td class="mono" style="color:${barColor}">${Math.round(w.ratio * 100)}%</td>
-        <td><span class="chip ${chipClass}">${chipText}</span></td>
-        <td class="pct-bar-cell">
-          <div class="pct-bar-bg">
-            <div class="pct-bar-fill" style="width:${Math.min(pct, 100)}%;background:${barColor}"></div>
-          </div>
-        </td>
-      </tr>
-    `;
+          <tr>
+            <td class="mono row-num">${i + 1}</td>
+            <td class="mono">${w.by}</td>
+            <td class="mono">${w.age} év</td>
+            <td class="mono">${w.actual}</td>
+            <td class="mono">${w.expected.toFixed(2)}</td>
+            <td class="mono" style="color:${barColor}">${Math.round(w.ratio * 100)}%</td>
+            <td><span class="chip ${chipClass}">${chipText}</span></td>
+            <td class="pct-bar-cell">
+              <div class="pct-bar-bg">
+                <div class="pct-bar-fill" style="width:${Math.min(pct, 100)}%;background:${barColor}"></div>
+              </div>
+            </td>
+          </tr>
+        `;
       });
 
-      // Draw curve
       drawCurve(womenDetails);
 
       document.getElementById('results').classList.add('visible');
@@ -982,9 +971,8 @@
       const svg = document.getElementById('curveSvg');
       const W = 800, H = 260;
       const pad = { left: 52, right: 24, top: 20, bottom: 36 };
-      const ages = Array.from({ length: 35 }, (_, i) => i + 15); // 15..49
+      const ages = Array.from({ length: 35 }, (_, i) => i + 15);
 
-      // scaled cumulative
       const curveY = ages.map(a => NO1975_CUMULATIVE[a] || 0);
 
       const xScale = a => pad.left + (a - 15) / 34 * (W - pad.left - pad.right);
@@ -992,7 +980,6 @@
 
       let html = '';
 
-      // Grid lines
       [0, 0.5, 1.0, 1.5, 2.0].forEach(v => {
         const y = yScale(v);
         html += `<line x1="${pad.left}" y1="${y}" x2="${W - pad.right}" y2="${y}" stroke="#2a3050" stroke-width="1"/>`;
@@ -1004,16 +991,13 @@
         html += `<line x1="${x}" y1="${H - pad.bottom}" x2="${x}" y2="${H - pad.bottom + 5}" stroke="#2a3050" stroke-width="1"/>`;
       });
 
-      // Axis labels
       html += `<text x="${pad.left + (W - pad.left - pad.right) / 2}" y="${H - 2}" font-size="9" fill="#8b93b0" text-anchor="middle" font-family="monospace">Életkor</text>`;
       html += `<text x="12" y="${H / 2}" font-size="9" fill="#8b93b0" text-anchor="middle" transform="rotate(-90 12 ${H / 2})" font-family="monospace">Kum. TFR</text>`;
 
-      // Reference line at 2.027 (befejezett TFR)
       const y20 = yScale(2.027);
       html += `<line x1="${pad.left}" y1="${y20}" x2="${W - pad.right}" y2="${y20}" stroke="rgba(232,201,106,0.35)" stroke-width="1" stroke-dasharray="4,3"/>`;
       html += `<text x="${W - pad.right + 2}" y="${y20 + 4}" font-size="8" fill="rgba(232,201,106,0.7)" font-family="monospace">2.027</text>`;
 
-      // Curve path
       const pathD = ages.map((a, i) => {
         const x = xScale(a);
         const y = yScale(curveY[i]);
@@ -1022,12 +1006,10 @@
 
       html += `<path d="${pathD}" fill="none" stroke="rgba(79,156,249,0.7)" stroke-width="2.5" stroke-linejoin="round"/>`;
 
-      // Area under curve
       const firstX = xScale(15), lastX = xScale(49), baseY = H - pad.bottom;
       const areaPath = `M${firstX},${baseY} ` + ages.map((a, i) => `L${xScale(a).toFixed(1)},${yScale(curveY[i]).toFixed(1)}`).join(' ') + ` L${lastX},${baseY} Z`;
       html += `<path d="${areaPath}" fill="rgba(79,156,249,0.06)"/>`;
 
-      // Worker dots
       womenDetails.forEach(w => {
         const age = w.age;
         if (age < 15 || age > 49) return;
@@ -1037,18 +1019,13 @@
         const yExp = yScale(expected);
         const yAct = yScale(Math.min(actual, 2.1));
 
-        // Vertical connector
         html += `<line x1="${x}" y1="${yExp}" x2="${x}" y2="${yAct}" stroke="rgba(249,123,79,0.3)" stroke-width="1"/>`;
-
-        // Expected position on curve (circle)
         html += `<circle cx="${x}" cy="${yExp}" r="4" fill="var(--surface)" stroke="rgba(79,156,249,0.9)" stroke-width="2"/>`;
 
-        // Actual dot
         const color = w.ratio >= 0.95 ? '#52c78a' : w.ratio >= 0.6 ? '#f9c44f' : '#f96b6b';
         html += `<circle cx="${x}" cy="${yAct}" r="5" fill="${color}" opacity="0.85"/>`;
       });
 
-      // Legend
       const lx = W - 200, ly = pad.top + 10;
       html += `<rect x="${lx}" y="${ly}" width="180" height="62" rx="5" fill="rgba(23,27,38,0.9)" stroke="#2a3050" stroke-width="1"/>`;
       html += `<line x1="${lx + 10}" y1="${ly + 16}" x2="${lx + 32}" y2="${ly + 16}" stroke="rgba(79,156,249,0.7)" stroke-width="2.5"/>`;
