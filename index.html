@@ -179,9 +179,9 @@
 
     @media (max-width: 700px) {
       th:nth-child(1), td:nth-child(1) { width: 28px; }  /* # */
-      th:nth-child(2), td:nth-child(2) { width: 80px; }  /* születési év */
-      th:nth-child(3), td:nth-child(3) { width: 70px; }  /* nem */
-      th:nth-child(4), td:nth-child(4) { width: 70px; }  /* gyerek */
+      th:nth-child(2), td:nth-child(2) { width: 70px; }  /* születési év */
+      th:nth-child(3), td:nth-child(3) { width: 60px; }  /* nem */
+      th:nth-child(4), td:nth-child(4) { width: 50px; }  /* gyerek */
     }
 
     /* CARD */
@@ -789,7 +789,7 @@
       tr.id = 'row_' + id;
       tr.innerHTML = `
     <td class="row-num">${rows.length}</td>
-    <td><input type="number" min="1940" max="2005" value="${birthYear}" id="by_${id}" placeholder="pl. 1985" style="width:90px"></td>
+    <td><input type="number" min="1940" max="2005" value="${birthYear}" id="by_${id}" placeholder="pl. 1985" style="width:110px"></td>
     <td>
       <select id="gen_${id}">
         <option value="Nő" ${gender === 'Nő' ? 'selected' : ''}>🚺 Nő</option>
