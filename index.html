@@ -21,13 +21,11 @@
       --green: #52c78a;
       --red: #f96b6b;
       --amber: #f9c44f;
+      --male-color: #4f9cf9;
+      --female-color: #f97b4f;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       background: var(--bg);
@@ -38,7 +36,6 @@
       overflow-x: hidden;
     }
 
-    /* HEADER */
     .header {
       background: linear-gradient(135deg, #0a0e1a 0%, #111827 60%, #0d1525 100%);
       border-bottom: 1px solid var(--border);
@@ -54,530 +51,233 @@
     .header::before {
       content: '';
       position: absolute;
-      top: -60px;
-      right: -80px;
-      width: 350px;
-      height: 350px;
+      top: -60px; right: -80px;
+      width: 350px; height: 350px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(79, 156, 249, 0.08) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(79,156,249,0.08) 0%, transparent 70%);
     }
 
     .header-label {
       font-family: 'DM Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 10px;
-      opacity: 0.85;
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 10px; opacity: 0.85;
     }
 
     .header h1 {
       font-family: 'DM Serif Display', serif;
       font-size: clamp(22px, 4vw, 36px);
-      font-weight: 400;
-      color: var(--text);
-      line-height: 1.2;
-      margin-bottom: 8px;
+      font-weight: 400; color: var(--text); line-height: 1.2; margin-bottom: 8px;
     }
 
     .header p {
-      font-size: 13px;
-      color: var(--text2);
-      max-width: 400px;
-      line-height: 1.6;
-      margin: 0 auto;
+      font-size: 13px; color: var(--text2);
+      max-width: 480px; line-height: 1.6; margin: 0 auto; text-align: center;
     }
 
     .reference-tag {
-      display: inline-block;
-      margin-top: 12px;
+      display: inline-block; margin-top: 12px;
       padding: 4px 12px;
-      background: rgba(232, 201, 106, 0.12);
-      border: 1px solid rgba(232, 201, 106, 0.3);
-      border-radius: 20px;
-      font-family: 'DM Mono', monospace;
-      font-size: 10px;
-      color: var(--gold);
-      letter-spacing: 1px;
+      background: rgba(232,201,106,0.12); border: 1px solid rgba(232,201,106,0.3);
+      border-radius: 20px; font-family: 'DM Mono', monospace;
+      font-size: 10px; color: var(--gold); letter-spacing: 1px;
     }
 
-    /* LAYOUT */
-    .main {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 32px 24px 0;
-    }
+    .main { max-width: 1100px; margin: 0 auto; padding: 32px 24px 0; }
 
-    /* INFO BOX */
     .info-box {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-left: 3px solid var(--accent);
-      border-radius: 8px;
-      padding: 16px 20px;
-      margin-bottom: 28px;
-      font-size: 13px;
-      color: var(--text2);
-      line-height: 1.7;
+      background: var(--surface); border: 1px solid var(--border);
+      border-left: 3px solid var(--accent); border-radius: 8px;
+      padding: 16px 20px; margin-bottom: 28px;
+      font-size: 13px; color: var(--text2); line-height: 1.7;
     }
+    .info-box strong { color: var(--text); }
 
-    .info-box strong {
-      color: var(--text);
-    }
-
-    /* GRID */
     .two-col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-      margin-bottom: 24px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;
     }
+    .two-col > * { min-width: 0; }
+    @media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
 
-    .two-col > * {
-      min-width: 0;
-    }
-
-    @media (max-width: 700px) {
-      .two-col {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* TABLE alapértelmezett input méretek (desktop) */
-    input[type="number"] {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      color: var(--text);
-      font-family: 'DM Mono', monospace;
-      font-size: 12px;
-      padding: 6px 10px;
-      width: 90px;
-      outline: none;
+    input[type="number"], select {
+      background: var(--bg); border: 1px solid var(--border); border-radius: 6px;
+      color: var(--text); font-family: 'DM Mono', monospace;
+      font-size: 12px; padding: 6px 10px; width: 90px; outline: none;
       transition: border-color 0.2s;
     }
+    input[type="number"]:focus, select:focus { border-color: var(--accent); }
 
-    select {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      color: var(--text);
-      font-family: 'DM Mono', monospace;
-      font-size: 12px;
-      padding: 6px 10px;
-      width: 90px;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    input[type="number"]:focus,
-    select:focus {
-      border-color: var(--accent);
-    }
-
-    /* MOBIL táblázat javítások */
     @media (max-width: 700px) {
-      td {
-        padding: 3px 2px;
-      }
-
-      th {
-        padding: 6px 3px;
-      }
-
-      /* Oszlopszélességek mobilon */
-      th:nth-child(1), td:nth-child(1) { width: 22px; }   /* # */
-      th:nth-child(2), td:nth-child(2) { width: 66px; }   /* születési év */
-      th:nth-child(3), td:nth-child(3) { width: 600px; }   /* nem */
-      th:nth-child(4), td:nth-child(4) { width: 50px; }   /* gyerekek */
-      th:nth-child(5), td:nth-child(5) { width: 26px; }   /* törlés gomb */
-
-      /* Input és select mobilon – teljes szélességű a cellán belül */
-      input[type="number"],
-      select {
-        width: 100%;
-        min-width: 0;
-        padding: 4px 3px;
-        font-size: 11px;
-      }
-
-      /* Select: eltávolítjuk a natív nyilat, helyet spórolunk */
-      select {
-        -webkit-appearance: none;
-        appearance: none;
-        padding: 4px 2px;
-        text-align: center;
-      }
-
-      td:last-child {
-        width: 26px;
-        padding: 2px;
-      }
-
-      td:last-child .btn {
-        padding: 2px 4px;
-        font-size: 9px;
-      }
+      td { padding: 3px 2px; } th { padding: 6px 3px; }
+      th:nth-child(1), td:nth-child(1) { width: 22px; }
+      th:nth-child(2), td:nth-child(2) { width: 66px; }
+      th:nth-child(3), td:nth-child(3) { width: 60px; }
+      th:nth-child(4), td:nth-child(4) { width: 50px; }
+      th:nth-child(5), td:nth-child(5) { width: 26px; }
+      input[type="number"], select { width: 100%; min-width: 0; padding: 4px 3px; font-size: 11px; }
+      select { -webkit-appearance: none; appearance: none; padding: 4px 2px; text-align: center; }
+      td:last-child { width: 26px; padding: 2px; }
+      td:last-child .btn { padding: 2px 4px; font-size: 9px; }
     }
 
-    /* CARD */
     .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 24px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 24px;
     }
-
     .card-title {
-      font-family: 'DM Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--text2);
-      margin-bottom: 18px;
+      font-family: 'DM Mono', monospace; font-size: 10px;
+      letter-spacing: 2px; text-transform: uppercase; color: var(--text2); margin-bottom: 18px;
     }
 
-    /* TABLE INPUT */
     .table-wrap {
-      overflow-x: auto;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      margin-bottom: 16px;
+      overflow-x: auto; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 16px;
     }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-    }
-
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
     th {
-      background: var(--surface2);
-      color: var(--text2);
-      font-family: 'DM Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      padding: 10px 14px;
-      text-align: left;
-      border-bottom: 1px solid var(--border);
-      white-space: nowrap;
+      background: var(--surface2); color: var(--text2);
+      font-family: 'DM Mono', monospace; font-size: 10px;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); white-space: nowrap;
     }
+    td { padding: 6px 8px; border-bottom: 1px solid rgba(42,48,80,0.5); vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255,255,255,0.02); }
 
-    td {
-      padding: 6px 8px;
-      border-bottom: 1px solid rgba(42, 48, 80, 0.5);
-      vertical-align: middle;
-    }
+    .row-num { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text2); text-align: center; width: 36px; }
 
-    tr:last-child td {
-      border-bottom: none;
-    }
-
-    tr:hover td {
-      background: rgba(255, 255, 255, 0.02);
-    }
-
-    .row-num {
-      font-family: 'DM Mono', monospace;
-      font-size: 11px;
-      color: var(--text2);
-      text-align: center;
-      width: 36px;
-    }
-
-    .gender-badge {
-      display: inline-block;
-      padding: 2px 10px;
-      border-radius: 12px;
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    .gender-f {
-      background: rgba(249, 123, 79, 0.15);
-      color: #f97b4f;
-      border: 1px solid rgba(249, 123, 79, 0.3);
-    }
-
-    .gender-m {
-      background: rgba(79, 156, 249, 0.1);
-      color: var(--accent);
-      border: 1px solid rgba(79, 156, 249, 0.25);
-    }
-
-    /* BUTTONS */
-    .btn-row {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 0;
-    }
-
-    .calc-buttons {
-      flex-direction: column;
-      align-items: flex-start;
-    }
+    .btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 0; }
+    .calc-buttons { flex-direction: column; align-items: flex-start; }
 
     .btn {
-      font-family: 'DM Mono', monospace;
-      font-size: 11px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      padding: 9px 18px;
-      border-radius: 6px;
-      border: 1px solid var(--border);
-      cursor: pointer;
-      transition: all 0.18s;
-      background: var(--surface2);
-      color: var(--text2);
+      font-family: 'DM Mono', monospace; font-size: 11px;
+      letter-spacing: 1px; text-transform: uppercase;
+      padding: 9px 18px; border-radius: 6px; border: 1px solid var(--border);
+      cursor: pointer; transition: all 0.18s; background: var(--surface2); color: var(--text2);
     }
+    .btn:hover { border-color: var(--accent); color: var(--text); }
+    .btn-primary { background: var(--accent); color: #0a0e1a; border-color: var(--accent); font-weight: 700; }
+    .btn-primary:hover { background: #6ab0ff; color: #0a0e1a; }
+    .btn-danger { color: var(--red); }
+    .btn-danger:hover { border-color: var(--red); }
 
-    .btn:hover {
-      border-color: var(--accent);
-      color: var(--text);
+    .results-section { display: none; }
+    .results-section.visible { display: block; }
+
+    /* Dual meter */
+    .dual-meter {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px;
     }
+    @media (max-width: 600px) { .dual-meter { grid-template-columns: 1fr; } }
 
-    .btn-primary {
-      background: var(--accent);
-      color: #0a0e1a;
-      border-color: var(--accent);
-      font-weight: 700;
-    }
-
-    .btn-primary:hover {
-      background: #6ab0ff;
-      color: #0a0e1a;
-    }
-
-    .btn-danger {
-      color: var(--red);
-    }
-
-    .btn-danger:hover {
-      border-color: var(--red);
-    }
-
-    /* RESULTS */
-    .results-section {
-      display: none;
-    }
-
-    .results-section.visible {
-      display: block;
-    }
-
-    /* BIG METER */
     .meter-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 36px 40px;
-      text-align: center;
-      margin-bottom: 24px;
-      position: relative;
-      overflow: hidden;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 28px 24px; text-align: center;
+      position: relative; overflow: hidden;
     }
-
     .meter-card::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: var(--meter-color, var(--accent));
-      transition: background 0.5s;
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+      background: var(--meter-color, var(--accent)); transition: background 0.5s;
     }
-
     .meter-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--text2);
-      margin-bottom: 8px;
+      font-family: 'DM Mono', monospace; font-size: 10px;
+      letter-spacing: 2px; text-transform: uppercase; color: var(--text2); margin-bottom: 6px;
     }
-
     .meter-value {
       font-family: 'DM Serif Display', serif;
-      font-size: clamp(60px, 12vw, 100px);
-      line-height: 1;
-      color: var(--meter-color, var(--accent));
-      transition: color 0.5s;
-      margin-bottom: 4px;
+      font-size: clamp(48px, 10vw, 80px); line-height: 1;
+      color: var(--meter-color, var(--accent)); transition: color 0.5s; margin-bottom: 4px;
     }
-
-    .meter-sub {
-      font-size: 13px;
-      color: var(--text2);
-      margin-top: 8px;
-    }
-
+    .meter-sub { font-size: 12px; color: var(--text2); margin-top: 6px; }
     .meter-verdict {
-      display: inline-block;
-      margin-top: 16px;
-      padding: 6px 20px;
-      border-radius: 24px;
-      font-family: 'DM Mono', monospace;
-      font-size: 11px;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      display: inline-block; margin-top: 12px; padding: 5px 16px;
+      border-radius: 24px; font-family: 'DM Mono', monospace;
+      font-size: 10px; letter-spacing: 1px; text-transform: uppercase;
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
     }
 
-    /* STATS GRID */
+    /* Combined meter */
+    .combined-meter {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 28px 32px; text-align: center;
+      margin-bottom: 24px; position: relative; overflow: hidden;
+    }
+    .combined-meter::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+      background: var(--meter-color, var(--accent)); transition: background 0.5s;
+    }
+
     .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 14px;
-      margin-bottom: 24px;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 14px; margin-bottom: 24px;
     }
-
     .stat-box {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 18px 16px;
-      text-align: center;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 16px; text-align: center;
     }
+    .stat-val { font-family: 'DM Serif Display', serif; font-size: 28px; color: var(--text); margin-bottom: 4px; }
+    .stat-lbl { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text2); }
 
-    .stat-val {
-      font-family: 'DM Serif Display', serif;
-      font-size: 32px;
-      color: var(--text);
-      margin-bottom: 4px;
-    }
-
-    .stat-lbl {
-      font-family: 'DM Mono', monospace;
-      font-size: 9px;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--text2);
-    }
-
-    /* BREAKDOWN TABLE */
     .breakdown-wrap {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      overflow: hidden;
-      margin-bottom: 24px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden; margin-bottom: 24px;
     }
-
     .breakdown-title {
-      padding: 14px 20px;
-      border-bottom: 1px solid var(--border);
-      font-family: 'DM Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--text2);
-      background: var(--surface2);
+      padding: 14px 20px; border-bottom: 1px solid var(--border);
+      font-family: 'DM Mono', monospace; font-size: 10px;
+      letter-spacing: 2px; text-transform: uppercase; color: var(--text2); background: var(--surface2);
     }
+    .breakdown-table th { background: transparent; }
+    .breakdown-table td { padding: 9px 14px; }
+    .pct-bar-cell { width: 120px; }
+    .pct-bar-bg { background: rgba(255,255,255,0.05); border-radius: 4px; height: 6px; overflow: hidden; }
+    .pct-bar-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; }
+    .mono { font-family: 'DM Mono', monospace; font-size: 12px; }
+    .chip { display: inline-block; padding: 1px 8px; border-radius: 10px; font-size: 10px; font-family: 'DM Mono', monospace; }
+    .chip-ok { background: rgba(82,199,138,0.15); color: var(--green); }
+    .chip-warn { background: rgba(249,196,79,0.15); color: var(--amber); }
+    .chip-bad { background: rgba(249,107,107,0.15); color: var(--red); }
 
-    .breakdown-table th {
-      background: transparent;
-    }
-
-    .breakdown-table td {
-      padding: 9px 14px;
-    }
-
-    .pct-bar-cell {
-      width: 140px;
-    }
-
-    .pct-bar-bg {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 4px;
-      height: 6px;
-      overflow: hidden;
-    }
-
-    .pct-bar-fill {
-      height: 100%;
-      border-radius: 4px;
-      transition: width 0.6s ease;
-    }
-
-    .mono {
-      font-family: 'DM Mono', monospace;
-      font-size: 12px;
-    }
-
-    .chip {
-      display: inline-block;
-      padding: 1px 8px;
-      border-radius: 10px;
-      font-size: 10px;
-      font-family: 'DM Mono', monospace;
-    }
-
-    .chip-ok {
-      background: rgba(82, 199, 138, 0.15);
-      color: var(--green);
-    }
-
-    .chip-warn {
-      background: rgba(249, 196, 79, 0.15);
-      color: var(--amber);
-    }
-
-    .chip-bad {
-      background: rgba(249, 107, 107, 0.15);
-      color: var(--red);
-    }
-
-    /* CURVE SVG */
+    /* Két görbe kártya */
     .curve-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 24px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 20px; margin-bottom: 24px;
     }
+    .curve-card svg { display: block; width: 100%; }
 
-    .curve-card svg {
-      display: block;
-      width: 100%;
+    /* Legenda badge-ek a curve fejlécénél */
+    .curve-header {
+      display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 14px;
     }
+    .curve-legend-item {
+      display: flex; align-items: center; gap: 6px;
+      font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text2);
+    }
+    .legend-line { width: 24px; height: 3px; border-radius: 2px; }
 
-    /* PASTE area */
     .paste-area {
-      background: var(--bg);
-      border: 1px dashed var(--border);
-      border-radius: 8px;
-      padding: 12px;
-      font-family: 'DM Mono', monospace;
-      font-size: 11px;
-      color: var(--text2);
-      width: 100%;
-      height: 80px;
-      resize: vertical;
-      outline: none;
-      margin-bottom: 8px;
+      background: var(--bg); border: 1px dashed var(--border); border-radius: 8px;
+      padding: 12px; font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text2);
+      width: 100%; height: 80px; resize: vertical; outline: none; margin-bottom: 8px;
     }
+    .paste-area:focus { border-color: var(--accent); }
+    .paste-hint { font-size: 11px; color: var(--text2); margin-bottom: 6px; }
+    .divider { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
 
-    .paste-area:focus {
-      border-color: var(--accent);
-    }
+    /* Nem-szín badge */
+    .badge-f { color: var(--female-color); font-weight: 700; }
+    .badge-m { color: var(--male-color); font-weight: 700; }
 
-    .paste-hint {
-      font-size: 11px;
-      color: var(--text2);
-      margin-bottom: 6px;
+    /* Tabs a bontáshoz */
+    .tab-bar { display: flex; gap: 0; margin-bottom: 0; border-bottom: 1px solid var(--border); }
+    .tab-btn {
+      font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 1.5px;
+      text-transform: uppercase; padding: 10px 18px; border: none; background: transparent;
+      color: var(--text2); cursor: pointer; border-bottom: 2px solid transparent;
+      transition: all 0.15s; margin-bottom: -1px;
     }
-
-    /* DIVIDER */
-    .divider {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 28px 0;
-    }
+    .tab-btn.active { color: var(--text); border-bottom-color: var(--accent); }
+    .tab-btn:hover { color: var(--text); }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
   </style>
 </head>
 
@@ -586,39 +286,37 @@
   <div class="header">
     <div class="header-label">Fenntarthatósági Elemzés · 2025</div>
     <h1>Vállalati Demográfiai<br>Fenntarthatóság<br>
-        Fenntartható Társadalom<br>Egyesület<br><a href="https://www.fenntars.hu/" target="_blank"
-        style="color:var(--accent);text-decoration:underline;">
-        fenntars.hu
-      </a><br></h1>
-    <p>A munkavállalók tényleges gyermekvállalási adatait az <em>1975-ös születésű norvég női kohorsz</em> tényleges
-      kumulatív termékenységi görbéjével hasonlítja össze. Az adatok forrása: Eurostat. Befejezett termékenység&nbsp;=&nbsp;2,027.</p>
-    <div class="reference-tag">Referencia: NO 1975-ös kohorsz · TFR = 2,027</div>
+      Fenntartható Társadalom<br>Egyesület<br>
+      <a href="https://www.fenntars.hu/" target="_blank" style="color:var(--accent);text-decoration:underline;">fenntars.hu</a>
+    </h1>
+    <p>A munkavállalók tényleges gyermekvállalási adatait az <em>1975-ös születésű norvég kohorsz</em> kumulatív termékenységi görbéjével hasonlítja össze — nőkre és férfiakra egyaránt. Az adatok forrása: Eurostat / SSB.</p>
+    <div class="reference-tag">Referencia: NO 1975-ös kohorsz · Nő TTA = 2,027 · Férfi TTA = 1,950</div>
   </div>
 
   <div class="main">
     <div class="info-box" style="border-left-color: var(--accent2);">
       <strong>Minta kérdőív használata:</strong><br><br>
       1. Nyisd meg a linket:
-      <a href="https://docs.google.com/forms/d/1lDV-pbphH5HQkfH7gJyUtBVFNGofJ7lTXX-_pDTq7Ns/edit" target="_blank"
-        style="color:var(--accent);text-decoration:underline;">
+      <a href="https://docs.google.com/forms/d/1lDV-pbphH5HQkfH7gJyUtBVFNGofJ7lTXX-_pDTq7Ns/edit" target="_blank" style="color:var(--accent);text-decoration:underline;">
         https://forms.gle/x5v2vJj4WMMuAT9y5
       </a><br>
       2. Kattints a ⋮ menüre<br>
       3. Válaszd: <strong>Másolat készítése</strong><br>
-      4. Nevezd át a másolt űrlapot, pl. "Cég neve - Demográfiai fenntarthatóság" és mentsd el.<br>
-      5. Oszd meg a kollégákkal, hogy töltsék ki a saját adataikkal (születési év, nem, gyerekek száma).<br>
-      6. Miután kitöltötték, Válaszok>Megtekintés a Táblázatokban<br>
-      7. A megnyíló Google Táblázatban Fájl>Letöltés>Vesszővel elválasztott értékek (.csv).<br>
-      8. A CSV fájlt nyisd meg szövegszerkesztőben, majd másold ki a második sortól a tartalmát és illeszd be a bal oldali "Tömeges beillesztés" mezőbe.<br><br>
-    </div>
-    <div class="info-box">
-      <strong>Módszertan:</strong> Minden nő esetén a jelenlegi kora alapján meghatározzuk, hogy a referencia kohorsz
-      ugyanilyen korú tagjai összesen hány gyereket szültek. Ez az <em>életkorhoz igazított elvárt gyerekszám</em>. A
-      tényleges és az elvárt arány adja az egyéni fenntarthatósági indexet. A vállalati mutató az összes nőre aggregált
-      értéket mutatja.
+      4. Nevezd át a másolt űrlapot és mentsd el.<br>
+      5. Oszd meg a kollégákkal, hogy töltsék ki a saját adataikkal.<br>
+      6. Miután kitöltötték, Válaszok › Megtekintés a Táblázatokban<br>
+      7. Fájl › Letöltés › Vesszővel elválasztott értékek (.csv)<br>
+      8. A CSV fájlt nyisd meg szövegszerkesztőben, másold ki a második sortól és illeszd be a "Tömeges beillesztés" mezőbe.<br>
     </div>
 
-    <!-- INPUT SECTION -->
+    <div class="info-box">
+      <strong>Módszertan:</strong> Minden munkavállaló jelenlegi kora alapján meghatározzuk, hogy a referencia kohorsz
+      ugyanilyen korú tagjai összesen hány gyereket vállaltak. Ez az <em>életkorhoz igazított elvárt gyerekszám</em>.
+      A nők referenciája a norvég 1975-ös <strong>női</strong> kohorsz (15–49 év, TTA = 2,027),
+      a férfiaké a norvég 1985/1975/1971-es <strong>férfi</strong> kohorsz (15–54 év, normalizált TTA = 1,950),
+      SSB 08452 adatokból, PCHIP-simítással.
+    </div>
+
     <div class="two-col">
       <div class="card">
         <div class="card-title">Adatok manuális bevitele</div>
@@ -664,11 +362,28 @@
     <!-- RESULTS -->
     <div class="results-section" id="results">
 
-      <div class="meter-card" id="meterCard">
-        <div class="meter-label">Vállalati Demográfiai Fenntarthatósági Index</div>
-        <div class="meter-value" id="meterVal">—</div>
-        <div class="meter-sub" id="meterSub"></div>
-        <div class="meter-verdict" id="meterVerdict"></div>
+      <!-- Kombinált index -->
+      <div class="combined-meter" id="combinedMeter">
+        <div class="meter-label">Vállalati Demográfiai Fenntarthatósági Index (összesített)</div>
+        <div class="meter-value" id="combinedVal">—</div>
+        <div class="meter-sub" id="combinedSub"></div>
+        <div class="meter-verdict" id="combinedVerdict"></div>
+      </div>
+
+      <!-- Nemi bontás -->
+      <div class="dual-meter">
+        <div class="meter-card" id="meterCardF">
+          <div class="meter-label" style="color:var(--female-color);opacity:0.8;">♀ Nők indexe</div>
+          <div class="meter-value" id="meterValF">—</div>
+          <div class="meter-sub" id="meterSubF"></div>
+          <div class="meter-verdict" id="meterVerdictF"></div>
+        </div>
+        <div class="meter-card" id="meterCardM">
+          <div class="meter-label" style="color:var(--male-color);opacity:0.8;">♂ Férfiak indexe</div>
+          <div class="meter-value" id="meterValM">—</div>
+          <div class="meter-sub" id="meterSubM"></div>
+          <div class="meter-verdict" id="meterVerdictM"></div>
+        </div>
       </div>
 
       <div class="stats-grid">
@@ -681,110 +396,149 @@
           <div class="stat-lbl">Férfi munkavállalók</div>
         </div>
         <div class="stat-box">
-          <div class="stat-val" id="statActual">—</div>
-          <div class="stat-lbl">Tényleges gyerekek</div>
+          <div class="stat-val" id="statActualF">—</div>
+          <div class="stat-lbl">Tényleges gyerek (nők)</div>
         </div>
         <div class="stat-box">
-          <div class="stat-val" id="statExpected">—</div>
-          <div class="stat-lbl">Elvárt gyerekek</div>
+          <div class="stat-val" id="statExpectedF">—</div>
+          <div class="stat-lbl">Elvárt gyerek (nők)</div>
         </div>
         <div class="stat-box">
-          <div class="stat-val" id="statAvgAge">—</div>
+          <div class="stat-val" id="statActualM">—</div>
+          <div class="stat-lbl">Tényleges gyerek (férfiak)</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val" id="statExpectedM">—</div>
+          <div class="stat-lbl">Elvárt gyerek (férfiak)</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val" id="statAvgAgeF">—</div>
           <div class="stat-lbl">Átlagéletkor (nők)</div>
         </div>
         <div class="stat-box">
-          <div class="stat-val" id="statAvgKids">—</div>
+          <div class="stat-val" id="statAvgKidsF">—</div>
           <div class="stat-lbl">Átlag gyerek/nő</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val" id="statAvgAgeM">—</div>
+          <div class="stat-lbl">Átlagéletkor (férfiak)</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val" id="statAvgKidsM">—</div>
+          <div class="stat-lbl">Átlag gyerek/férfi</div>
         </div>
       </div>
 
-      <!-- CURVE -->
+      <!-- Görbe mindkét nemmel -->
       <div class="curve-card">
-        <div class="card-title" style="margin-bottom:12px;">Referencia görbe: NO 1975-ös kohorsz kumulatív termékenység
-          + vállalati pozíciók</div>
-        <svg id="curveSvg" viewBox="0 0 800 260" xmlns="http://www.w3.org/2000/svg"></svg>
+        <div class="curve-header">
+          <div class="card-title" style="margin-bottom:0;">Referencia görbék + vállalati pozíciók</div>
+          <div class="curve-legend-item">
+            <div class="legend-line" style="background:var(--female-color);"></div>
+            <span>Nő referencia (15–49)</span>
+          </div>
+          <div class="curve-legend-item">
+            <div class="legend-line" style="background:var(--male-color);"></div>
+            <span>Férfi referencia (15–54)</span>
+          </div>
+          <div class="curve-legend-item">
+            <svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="5" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2"/></svg>
+            <span>Elvárt pozíció</span>
+          </div>
+          <div class="curve-legend-item">
+            <svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="5" fill="#52c78a" opacity="0.85"/></svg>
+            <span>Tényleges (OK / alacsony / kritikus)</span>
+          </div>
+        </div>
+        <svg id="curveSvg" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg"></svg>
       </div>
 
-      <!-- BREAKDOWN -->
+      <!-- Bontás táblázatok tabokkal -->
       <div class="breakdown-wrap">
-        <div class="breakdown-title">Egyéni bontás — csak nők</div>
-        <table class="breakdown-table">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Születési év</th>
-              <th>Jelenlegi kor</th>
-              <th>Tényleges gyerek</th>
-              <th>Elvárt (korhoz igazított)</th>
-              <th>Egyéni index</th>
-              <th>Állapot</th>
-              <th class="pct-bar-cell"></th>
-            </tr>
-          </thead>
-          <tbody id="breakdownBody"></tbody>
-        </table>
+        <div class="tab-bar">
+          <button class="tab-btn active" onclick="switchTab('women')">♀ Nők bontása</button>
+          <button class="tab-btn" onclick="switchTab('men')">♂ Férfiak bontása</button>
+        </div>
+
+        <div class="tab-content active" id="tab-women">
+          <table class="breakdown-table">
+            <thead>
+              <tr>
+                <th>#</th><th>Születési év</th><th>Jelenlegi kor</th>
+                <th>Tényleges gyerek</th><th>Elvárt (korhoz igazított)</th>
+                <th>Egyéni index</th><th>Állapot</th><th class="pct-bar-cell"></th>
+              </tr>
+            </thead>
+            <tbody id="breakdownBodyF"></tbody>
+          </table>
+        </div>
+
+        <div class="tab-content" id="tab-men">
+          <table class="breakdown-table">
+            <thead>
+              <tr>
+                <th>#</th><th>Születési év</th><th>Jelenlegi kor</th>
+                <th>Tényleges gyerek</th><th>Elvárt (korhoz igazított)</th>
+                <th>Egyéni index</th><th>Állapot</th><th class="pct-bar-cell"></th>
+              </tr>
+            </thead>
+            <tbody id="breakdownBodyM"></tbody>
+          </table>
+        </div>
       </div>
 
-    </div>
+    </div><!-- /results -->
   </div>
 
   <script>
     // ============================================================
-    // NORWEGIAN 1975 COHORT CUMULATIVE FERTILITY
+    // REFERENCIA GÖRBÉK
     // ============================================================
-    const NO1975_CUMULATIVE = {
-      15: 0.000,
-      16: 0.000,
-      17: 0.002,
-      18: 0.008,
-      19: 0.022,
-      20: 0.050,
-      21: 0.092,
-      22: 0.146,
-      23: 0.211,
-      24: 0.283,
-      25: 0.369,
-      26: 0.467,
-      27: 0.578,
-      28: 0.695,
-      29: 0.825,
-      30: 0.964,
-      31: 1.106,
-      32: 1.249,
-      33: 1.382,
-      34: 1.504,
-      35: 1.617,
-      36: 1.713,
-      37: 1.795,
-      38: 1.859,
-      39: 1.908,
-      40: 1.948,
-      41: 1.977,
-      42: 1.997,
-      43: 2.010,
-      44: 2.017,
-      45: 2.021,
-      46: 2.024,
-      47: 2.025,
-      48: 2.026,
-      49: 2.027,
+
+    // NŐI görbe: NO 1975-ös kohorsz, Eurostat (15–49)
+    const NO1975_FEMALE = {
+      15:0.000, 16:0.000, 17:0.002, 18:0.008, 19:0.022,
+      20:0.050, 21:0.092, 22:0.146, 23:0.211, 24:0.283,
+      25:0.369, 26:0.467, 27:0.578, 28:0.695, 29:0.825,
+      30:0.964, 31:1.106, 32:1.249, 33:1.382, 34:1.504,
+      35:1.617, 36:1.713, 37:1.795, 38:1.859, 39:1.908,
+      40:1.948, 41:1.977, 42:1.997, 43:2.010, 44:2.017,
+      45:2.021, 46:2.024, 47:2.025, 48:2.026, 49:2.027,
     };
 
-    const COMPLETED_TFR = 2.027;
+    // FÉRFI görbe: NO 1975-ös kohorsz, SSB 08452, PCHIP-simított, normalizált
+    // (férfi 54 éves kumulatív = 1,950 ≈ befejezett TTA)
+    const NO1975_MALE = {
+      15:0.00000, 16:0.00000, 17:0.00228, 18:0.00727, 19:0.01681,
+      20:0.03239, 21:0.05503, 22:0.08543, 23:0.12654, 24:0.18221,
+      25:0.25391, 26:0.34062, 27:0.43888, 28:0.54643, 29:0.66307,
+      30:0.78755, 31:0.91751, 32:1.04954, 33:1.17814, 34:1.29793,
+      35:1.40580, 36:1.50088, 37:1.58452, 38:1.65738, 39:1.71863,
+      40:1.76846, 41:1.80818, 42:1.84014, 43:1.86613, 44:1.88677,
+      45:1.90282, 46:1.91517, 47:1.92484, 48:1.93244, 49:1.93814,
+      50:1.94231, 51:1.94543, 52:1.94817, 53:1.95052, 54:1.95013,
+    };
 
-    function getExpected(age) {
-      const clampedAge = Math.max(15, Math.min(49, age));
-      return NO1975_CUMULATIVE[clampedAge] || 0;
+    const COMPLETED_TFR_F = 2.027;
+    const COMPLETED_TFR_M = 1.950;
+    const CURRENT_YEAR = 2025;
+
+    function getExpectedF(age) {
+      const a = Math.max(15, Math.min(49, age));
+      return NO1975_FEMALE[a] || 0;
+    }
+
+    function getExpectedM(age) {
+      const a = Math.max(15, Math.min(54, age));
+      return NO1975_MALE[a] || 0;
     }
 
     // ============================================================
-    // TABLE MANAGEMENT
+    // TABLE
     // ============================================================
-    let rows = [];
-    let rowCounter = 0;
-    const CURRENT_YEAR = 2025;
+    let rows = [], rowCounter = 0;
 
-    function addRow(birthYear = '', gender = 'Nő', children = '') {
+    function addRow(birthYear='', gender='Nő', children='') {
       rowCounter++;
       const id = rowCounter;
       rows.push(id);
@@ -793,11 +547,11 @@
       tr.id = 'row_' + id;
       tr.innerHTML = `
         <td class="row-num">${rows.length}</td>
-        <td><input type="number" min="1940" max="2005" value="${birthYear}" id="by_${id}" placeholder="1985"></td>
+        <td><input type="number" min="1940" max="2010" value="${birthYear}" id="by_${id}" placeholder="1985"></td>
         <td>
           <select id="gen_${id}">
-            <option value="Nő" ${gender === 'Nő' ? 'selected' : ''}>Nő</option>
-            <option value="Férfi" ${gender === 'Férfi' ? 'selected' : ''}>Férfi</option>
+            <option value="Nő" ${gender==='Nő'?'selected':''}>Nő</option>
+            <option value="Férfi" ${gender==='Férfi'?'selected':''}>Férfi</option>
           </select>
         </td>
         <td><input type="number" min="0" max="15" value="${children}" id="ch_${id}" placeholder="0"></td>
@@ -808,14 +562,12 @@
 
     function removeRow(id) {
       rows = rows.filter(r => r !== id);
-      const tr = document.getElementById('row_' + id);
-      if (tr) tr.remove();
-      document.querySelectorAll('#tableBody tr .row-num').forEach((el, i) => el.textContent = i + 1);
+      document.getElementById('row_'+id)?.remove();
+      document.querySelectorAll('#tableBody tr .row-num').forEach((el,i) => el.textContent = i+1);
     }
 
     function clearTable() {
-      rows = [];
-      rowCounter = 0;
+      rows = []; rowCounter = 0;
       document.getElementById('tableBody').innerHTML = '';
       document.getElementById('results').classList.remove('visible');
     }
@@ -823,31 +575,20 @@
     function parsePaste() {
       const text = document.getElementById('pasteArea').value.trim();
       if (!text) return;
-
-      const lines = text.split("\n");
       let added = 0;
-
-      lines.forEach((line, index) => {
-        if (index === 0 && line.toLowerCase().includes('időbélyeg')) return;
-
+      text.split('\n').forEach((line, index) => {
+        if (index===0 && line.toLowerCase().includes('időbélyeg')) return;
         const parts = line.split(/[,\t]+/).map(x => x.trim());
         if (parts.length < 4) return;
-
         const by = parseInt(parts[1]);
         const raw = parts[2].toLowerCase();
         const ch = parseInt(parts[3]) || 0;
-
         let gen;
-        if (raw.startsWith('n')) gen = 'Nő';
-        else if (raw.startsWith('f')) gen = 'Férfi';
+        if (raw.startsWith('n')) gen='Nő';
+        else if (raw.startsWith('f')) gen='Férfi';
         else return;
-
-        if (!isNaN(by)) {
-          addRow(by, gen, ch);
-          added++;
-        }
+        if (!isNaN(by)) { addRow(by, gen, ch); added++; }
       });
-
       document.getElementById('pasteArea').value = '';
       alert(`${added} sor beolvasva.`);
     }
@@ -855,194 +596,260 @@
     function loadDemo() {
       clearTable();
       const demo = [
-        [1972, 'Nő', 2], [1975, 'Nő', 3], [1978, 'Nő', 1], [1980, 'Nő', 2], [1982, 'Nő', 0],
-        [1985, 'Nő', 1], [1988, 'Nő', 2], [1990, 'Nő', 0], [1992, 'Nő', 1], [1995, 'Nő', 0],
-        [1998, 'Nő', 0], [2000, 'Nő', 0], [1975, 'Férfi', 2], [1980, 'Férfi', 1], [1988, 'Férfi', 3],
-        [1976, 'Nő', 4], [1983, 'Nő', 2], [1991, 'Nő', 1], [1970, 'Nő', 3], [1968, 'Nő', 2]
+        [1972,'Nő',2],[1975,'Nő',3],[1978,'Nő',1],[1980,'Nő',2],[1982,'Nő',0],
+        [1985,'Nő',1],[1988,'Nő',2],[1990,'Nő',0],[1992,'Nő',1],[1995,'Nő',0],
+        [1998,'Nő',0],[2000,'Nő',0],[1975,'Férfi',2],[1980,'Férfi',1],[1988,'Férfi',3],
+        [1976,'Nő',4],[1983,'Nő',2],[1991,'Nő',1],[1970,'Nő',3],[1968,'Nő',2],
+        [1972,'Férfi',0],[1985,'Férfi',2],[1992,'Férfi',1],[1979,'Férfi',3],[1995,'Férfi',0],
       ];
-      demo.forEach(([by, gen, ch]) => addRow(by, gen, ch));
+      demo.forEach(([by,gen,ch]) => addRow(by,gen,ch));
     }
 
     // ============================================================
     // CALCULATE
     // ============================================================
+    function verdictInfo(idx) {
+      if (idx >= 95) return { color:'var(--green)',  text:'✓ Fenntartható' };
+      if (idx >= 70) return { color:'var(--amber)',  text:'⚠ Csökkent' };
+      if (idx >= 45) return { color:'var(--accent2)',text:'▼ Alacsony' };
+      return               { color:'var(--red)',    text:'✗ Kritikus' };
+    }
+
+    function setMeter(valEl, cardEl, subEl, verdictEl, idx, actual, expected) {
+      const { color, text } = verdictInfo(idx);
+      valEl.textContent = Math.round(idx) + '%';
+      valEl.style.color = color;
+      cardEl.style.setProperty('--meter-color', color);
+      subEl.innerHTML = `Tényleges: <strong>${actual}</strong> &nbsp;·&nbsp; Elvárt: <strong>${expected.toFixed(1)}</strong>`;
+      verdictEl.textContent = text;
+      verdictEl.style.color = color;
+    }
+
     function calculate() {
       const data = [];
       rows.forEach(id => {
-        const by = parseInt(document.getElementById('by_' + id)?.value);
-        const gen = document.getElementById('gen_' + id)?.value;
-        const ch = parseInt(document.getElementById('ch_' + id)?.value) || 0;
-        if (!isNaN(by) && by > 1940 && by <= 2005 && gen) {
-          data.push({ by, gen, ch });
-        }
+        const by  = parseInt(document.getElementById('by_'+id)?.value);
+        const gen = document.getElementById('gen_'+id)?.value;
+        const ch  = parseInt(document.getElementById('ch_'+id)?.value) || 0;
+        if (!isNaN(by) && by > 1940 && by <= 2010 && gen) data.push({ by, gen, ch });
       });
 
-      if (data.length === 0) {
-        alert('Kérjük, adjon meg legalább egy munkavállalót!');
-        return;
-      }
+      if (!data.length) { alert('Kérjük, adjon meg legalább egy munkavállalót!'); return; }
 
-      const women = data.filter(d => d.gen === 'Nő');
-      const men = data.filter(d => d.gen === 'Férfi');
+      const women = data.filter(d => d.gen==='Nő');
+      const men   = data.filter(d => d.gen==='Férfi');
 
-      if (women.length === 0) {
-        alert('Nincs nő munkavállaló az adatokban – a számítás csak nőkre vonatkozik.');
-        return;
-      }
-
-      let totalActual = 0;
-      let totalExpected = 0;
-      const womenDetails = [];
-
-      women.forEach((w, i) => {
+      // NŐK
+      let totActF=0, totExpF=0;
+      const womenDet = women.map((w,i) => {
         const age = CURRENT_YEAR - w.by;
-        const expected = getExpected(age);
-        const actual = w.ch;
-        const ratio = expected > 0 ? (actual / expected) : (actual > 0 ? 1 : 1);
-        totalActual += actual;
-        totalExpected += expected;
-        womenDetails.push({ ...w, age, expected, actual, ratio, idx: i + 1 });
+        const exp = getExpectedF(age);
+        const ratio = exp > 0 ? w.ch/exp : (w.ch>0?1:1);
+        totActF += w.ch; totExpF += exp;
+        return { ...w, age, expected:exp, actual:w.ch, ratio, idx:i+1 };
       });
+      const idxF = totExpF > 0 ? (totActF/totExpF)*100 : 0;
 
-      const corporateIndex = totalExpected > 0 ? (totalActual / totalExpected) * 100 : 0;
+      // FÉRFIAK
+      let totActM=0, totExpM=0;
+      const menDet = men.map((m,i) => {
+        const age = CURRENT_YEAR - m.by;
+        const exp = getExpectedM(age);
+        const ratio = exp > 0 ? m.ch/exp : (m.ch>0?1:1);
+        totActM += m.ch; totExpM += exp;
+        return { ...m, age, expected:exp, actual:m.ch, ratio, idx:i+1 };
+      });
+      const idxM = totExpM > 0 ? (totActM/totExpM)*100 : 0;
 
-      const meterVal = document.getElementById('meterVal');
-      const meterCard = document.getElementById('meterCard');
-      const meterSub = document.getElementById('meterSub');
-      const meterVerdict = document.getElementById('meterVerdict');
+      // KOMBINÁLT
+      const totAct = totActF + totActM;
+      const totExp = totExpF + totExpM;
+      const idxC   = totExp > 0 ? (totAct/totExp)*100 : 0;
 
-      meterVal.textContent = Math.round(corporateIndex) + '%';
+      // Kombinált meter
+      const { color:cc, text:ct } = verdictInfo(idxC);
+      const cmv = document.getElementById('combinedVal');
+      const cm  = document.getElementById('combinedMeter');
+      cmv.textContent = Math.round(idxC) + '%';
+      cmv.style.color = cc;
+      cm.style.setProperty('--meter-color', cc);
+      document.getElementById('combinedSub').innerHTML =
+        `Összes tényleges: <strong>${totAct}</strong> &nbsp;·&nbsp; Összes elvárt: <strong>${totExp.toFixed(1)}</strong>`;
+      const cv = document.getElementById('combinedVerdict');
+      cv.textContent = ct; cv.style.color = cc;
 
-      let color, verdict;
-      if (corporateIndex >= 95) { color = 'var(--green)'; verdict = '✓ Fenntartható – reprodukciós szint körül'; }
-      else if (corporateIndex >= 70) { color = 'var(--amber)'; verdict = '⚠ Csökkent – enyhe demográfiai deficit'; }
-      else if (corporateIndex >= 45) { color = 'var(--accent2)'; verdict = '▼ Alacsony – jelentős demográfiai deficit'; }
-      else { color = 'var(--red)'; verdict = '✗ Kritikus – súlyos demográfiai hiány'; }
+      // Nemi meterek
+      if (women.length) {
+        setMeter(
+          document.getElementById('meterValF'), document.getElementById('meterCardF'),
+          document.getElementById('meterSubF'), document.getElementById('meterVerdictF'),
+          idxF, totActF, totExpF
+        );
+      }
+      if (men.length) {
+        setMeter(
+          document.getElementById('meterValM'), document.getElementById('meterCardM'),
+          document.getElementById('meterSubM'), document.getElementById('meterVerdictM'),
+          idxM, totActM, totExpM
+        );
+      }
 
-      meterCard.style.setProperty('--meter-color', color);
-      meterVal.style.color = color;
-      meterSub.innerHTML = `Tényleges: <strong>${totalActual}</strong> gyerek &nbsp;·&nbsp; Elvárt (arányos): <strong>${totalExpected.toFixed(1)}</strong> gyerek`;
-      meterVerdict.textContent = verdict;
-      meterVerdict.style.color = color;
+      // Stats
+      document.getElementById('statWomen').textContent   = women.length;
+      document.getElementById('statMen').textContent     = men.length;
+      document.getElementById('statActualF').textContent  = totActF;
+      document.getElementById('statExpectedF').textContent= totExpF.toFixed(1);
+      document.getElementById('statActualM').textContent  = totActM;
+      document.getElementById('statExpectedM').textContent= totExpM.toFixed(1);
+      if (women.length) {
+        const aa = women.reduce((s,w)=>s+(CURRENT_YEAR-w.by),0)/women.length;
+        document.getElementById('statAvgAgeF').textContent = aa.toFixed(1);
+        document.getElementById('statAvgKidsF').textContent= (totActF/women.length).toFixed(2);
+      }
+      if (men.length) {
+        const aa = men.reduce((s,m)=>s+(CURRENT_YEAR-m.by),0)/men.length;
+        document.getElementById('statAvgAgeM').textContent = aa.toFixed(1);
+        document.getElementById('statAvgKidsM').textContent= (totActM/men.length).toFixed(2);
+      }
 
-      document.getElementById('statWomen').textContent = women.length;
-      document.getElementById('statMen').textContent = men.length;
-      document.getElementById('statActual').textContent = totalActual;
-      document.getElementById('statExpected').textContent = totalExpected.toFixed(1);
-      const avgAge = women.reduce((s, w) => s + (CURRENT_YEAR - w.by), 0) / women.length;
-      document.getElementById('statAvgAge').textContent = avgAge.toFixed(1);
-      document.getElementById('statAvgKids').textContent = (totalActual / women.length).toFixed(2);
+      // Bontás táblázatok
+      fillBreakdown('breakdownBodyF', womenDet);
+      fillBreakdown('breakdownBodyM', menDet);
 
-      const tbody = document.getElementById('breakdownBody');
+      drawCurve(womenDet, menDet);
+
+      document.getElementById('results').classList.add('visible');
+      document.getElementById('results').scrollIntoView({ behavior:'smooth', block:'start' });
+    }
+
+    function fillBreakdown(tbodyId, details) {
+      const tbody = document.getElementById(tbodyId);
       tbody.innerHTML = '';
-      womenDetails.sort((a, b) => a.by - b.by).forEach((w, i) => {
-        const pct = Math.min(w.ratio * 100, 200);
-        const chipClass = w.ratio >= 0.95 ? 'chip-ok' : w.ratio >= 0.6 ? 'chip-warn' : 'chip-bad';
-        const chipText = w.ratio >= 0.95 ? 'OK' : w.ratio >= 0.6 ? 'Alacsony' : 'Kritikus';
-        const barColor = w.ratio >= 0.95 ? 'var(--green)' : w.ratio >= 0.6 ? 'var(--amber)' : 'var(--red)';
+      if (!details.length) {
+        tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--text2);padding:20px;">Nincs adat</td></tr>';
+        return;
+      }
+      details.sort((a,b)=>a.by-b.by).forEach((w,i) => {
+        const pct = Math.min(w.ratio*100, 200);
+        const chipClass = w.ratio>=0.95?'chip-ok': w.ratio>=0.6?'chip-warn':'chip-bad';
+        const chipText  = w.ratio>=0.95?'OK': w.ratio>=0.6?'Alacsony':'Kritikus';
+        const barColor  = w.ratio>=0.95?'var(--green)': w.ratio>=0.6?'var(--amber)':'var(--red)';
         tbody.innerHTML += `
           <tr>
-            <td class="mono row-num">${i + 1}</td>
+            <td class="mono row-num">${i+1}</td>
             <td class="mono">${w.by}</td>
             <td class="mono">${w.age} év</td>
             <td class="mono">${w.actual}</td>
             <td class="mono">${w.expected.toFixed(2)}</td>
-            <td class="mono" style="color:${barColor}">${Math.round(w.ratio * 100)}%</td>
+            <td class="mono" style="color:${barColor}">${Math.round(w.ratio*100)}%</td>
             <td><span class="chip ${chipClass}">${chipText}</span></td>
             <td class="pct-bar-cell">
               <div class="pct-bar-bg">
-                <div class="pct-bar-fill" style="width:${Math.min(pct, 100)}%;background:${barColor}"></div>
+                <div class="pct-bar-fill" style="width:${Math.min(pct,100)}%;background:${barColor}"></div>
               </div>
             </td>
-          </tr>
-        `;
+          </tr>`;
       });
-
-      drawCurve(womenDetails);
-
-      document.getElementById('results').classList.add('visible');
-      document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     // ============================================================
-    // SVG CURVE
+    // TABS
     // ============================================================
-    function drawCurve(womenDetails) {
+    function switchTab(name) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      document.querySelector(`.tab-btn[onclick="switchTab('${name}')"]`).classList.add('active');
+      document.getElementById('tab-'+name).classList.add('active');
+    }
+
+    // ============================================================
+    // SVG GÖRBE – mindkét nem
+    // ============================================================
+    function drawCurve(womenDet, menDet) {
       const svg = document.getElementById('curveSvg');
-      const W = 800, H = 260;
-      const pad = { left: 52, right: 24, top: 20, bottom: 36 };
-      const ages = Array.from({ length: 35 }, (_, i) => i + 15);
+      const W=800, H=300;
+      const pad = { left:52, right:28, top:20, bottom:36 };
 
-      const curveY = ages.map(a => NO1975_CUMULATIVE[a] || 0);
-
-      const xScale = a => pad.left + (a - 15) / 34 * (W - pad.left - pad.right);
-      const yScale = v => H - pad.bottom - v / 2.1 * (H - pad.top - pad.bottom);
+      // x-tengely: 15–54 (férfi tartomány)
+      const minAge=15, maxAge=54;
+      const xScale = a => pad.left + (a-minAge)/(maxAge-minAge) * (W-pad.left-pad.right);
+      const yScale = v => H-pad.bottom - v/2.15 * (H-pad.top-pad.bottom);
 
       let html = '';
 
-      [0, 0.5, 1.0, 1.5, 2.0].forEach(v => {
-        const y = yScale(v);
-        html += `<line x1="${pad.left}" y1="${y}" x2="${W - pad.right}" y2="${y}" stroke="#2a3050" stroke-width="1"/>`;
-        html += `<text x="${pad.left - 6}" y="${y + 4}" font-size="9" fill="#8b93b0" text-anchor="end" font-family="monospace">${v.toFixed(1)}</text>`;
+      // Grid
+      [0,0.5,1.0,1.5,2.0].forEach(v => {
+        const y=yScale(v);
+        html+=`<line x1="${pad.left}" y1="${y}" x2="${W-pad.right}" y2="${y}" stroke="#2a3050" stroke-width="1"/>`;
+        html+=`<text x="${pad.left-6}" y="${y+4}" font-size="9" fill="#8b93b0" text-anchor="end" font-family="monospace">${v.toFixed(1)}</text>`;
       });
-      [15, 20, 25, 30, 35, 40, 45, 49].forEach(a => {
-        const x = xScale(a);
-        html += `<text x="${x}" y="${H - pad.bottom + 14}" font-size="9" fill="#8b93b0" text-anchor="middle" font-family="monospace">${a}</text>`;
-        html += `<line x1="${x}" y1="${H - pad.bottom}" x2="${x}" y2="${H - pad.bottom + 5}" stroke="#2a3050" stroke-width="1"/>`;
+      [15,20,25,30,35,40,45,49,54].forEach(a => {
+        const x=xScale(a);
+        html+=`<text x="${x}" y="${H-pad.bottom+14}" font-size="9" fill="#8b93b0" text-anchor="middle" font-family="monospace">${a}</text>`;
+        html+=`<line x1="${x}" y1="${H-pad.bottom}" x2="${x}" y2="${H-pad.bottom+5}" stroke="#2a3050" stroke-width="1"/>`;
+      });
+      html+=`<text x="${pad.left+(W-pad.left-pad.right)/2}" y="${H-2}" font-size="9" fill="#8b93b0" text-anchor="middle" font-family="monospace">Életkor</text>`;
+      html+=`<text x="12" y="${H/2}" font-size="9" fill="#8b93b0" text-anchor="middle" transform="rotate(-90 12 ${H/2})" font-family="monospace">Kum. TTA</text>`;
+
+      // Befejezett TTA vonalak
+      [2.027, 1.950].forEach((v,i) => {
+        const y=yScale(v);
+        const col = i===0?'rgba(249,123,79,0.3)':'rgba(79,156,249,0.3)';
+        html+=`<line x1="${pad.left}" y1="${y}" x2="${W-pad.right}" y2="${y}" stroke="${col}" stroke-width="1" stroke-dasharray="4,3"/>`;
+        html+=`<text x="${W-pad.right+2}" y="${y+4}" font-size="8" fill="${col.replace('0.3','0.8')}" font-family="monospace">${v}</text>`;
       });
 
-      html += `<text x="${pad.left + (W - pad.left - pad.right) / 2}" y="${H - 2}" font-size="9" fill="#8b93b0" text-anchor="middle" font-family="monospace">Életkor</text>`;
-      html += `<text x="12" y="${H / 2}" font-size="9" fill="#8b93b0" text-anchor="middle" transform="rotate(-90 12 ${H / 2})" font-family="monospace">Kum. TFR</text>`;
-
-      const y20 = yScale(2.027);
-      html += `<line x1="${pad.left}" y1="${y20}" x2="${W - pad.right}" y2="${y20}" stroke="rgba(232,201,106,0.35)" stroke-width="1" stroke-dasharray="4,3"/>`;
-      html += `<text x="${W - pad.right + 2}" y="${y20 + 4}" font-size="8" fill="rgba(232,201,106,0.7)" font-family="monospace">2.027</text>`;
-
-      const pathD = ages.map((a, i) => {
-        const x = xScale(a);
-        const y = yScale(curveY[i]);
-        return (i === 0 ? 'M' : 'L') + `${x.toFixed(1)},${y.toFixed(1)}`;
+      // Női görbe (15–49)
+      const fAges = Array.from({length:35},(_,i)=>i+15);
+      const fPath = fAges.map((a,i)=>{
+        const x=xScale(a), y=yScale(NO1975_FEMALE[a]||0);
+        return (i===0?'M':'L')+`${x.toFixed(1)},${y.toFixed(1)}`;
       }).join(' ');
+      html+=`<path d="${fPath}" fill="none" stroke="rgba(249,123,79,0.75)" stroke-width="2.2" stroke-linejoin="round"/>`;
 
-      html += `<path d="${pathD}" fill="none" stroke="rgba(79,156,249,0.7)" stroke-width="2.5" stroke-linejoin="round"/>`;
+      // Férfi görbe (15–54)
+      const mAges = Array.from({length:40},(_,i)=>i+15);
+      const mPath = mAges.map((a,i)=>{
+        const x=xScale(a), y=yScale(NO1975_MALE[a]||0);
+        return (i===0?'M':'L')+`${x.toFixed(1)},${y.toFixed(1)}`;
+      }).join(' ');
+      html+=`<path d="${mPath}" fill="none" stroke="rgba(79,156,249,0.75)" stroke-width="2.2" stroke-linejoin="round"/>`;
 
-      const firstX = xScale(15), lastX = xScale(49), baseY = H - pad.bottom;
-      const areaPath = `M${firstX},${baseY} ` + ages.map((a, i) => `L${xScale(a).toFixed(1)},${yScale(curveY[i]).toFixed(1)}`).join(' ') + ` L${lastX},${baseY} Z`;
-      html += `<path d="${areaPath}" fill="rgba(79,156,249,0.06)"/>`;
+      // Területek
+      const fFirstX=xScale(15), fLastX=xScale(49), baseY=H-pad.bottom;
+      html+=`<path d="M${fFirstX},${baseY} ${fAges.map(a=>`L${xScale(a).toFixed(1)},${yScale(NO1975_FEMALE[a]||0).toFixed(1)}`).join(' ')} L${fLastX},${baseY} Z" fill="rgba(249,123,79,0.04)"/>`;
+      const mLastX=xScale(54);
+      html+=`<path d="M${fFirstX},${baseY} ${mAges.map(a=>`L${xScale(a).toFixed(1)},${yScale(NO1975_MALE[a]||0).toFixed(1)}`).join(' ')} L${mLastX},${baseY} Z" fill="rgba(79,156,249,0.04)"/>`;
 
-      womenDetails.forEach(w => {
-        const age = w.age;
-        if (age < 15 || age > 49) return;
-        const x = xScale(age);
-        const actual = w.actual;
-        const expected = w.expected;
-        const yExp = yScale(expected);
-        const yAct = yScale(Math.min(actual, 2.1));
-
-        html += `<line x1="${x}" y1="${yExp}" x2="${x}" y2="${yAct}" stroke="rgba(249,123,79,0.3)" stroke-width="1"/>`;
-        html += `<circle cx="${x}" cy="${yExp}" r="4" fill="var(--surface)" stroke="rgba(79,156,249,0.9)" stroke-width="2"/>`;
-
-        const color = w.ratio >= 0.95 ? '#52c78a' : w.ratio >= 0.6 ? '#f9c44f' : '#f96b6b';
-        html += `<circle cx="${x}" cy="${yAct}" r="5" fill="${color}" opacity="0.85"/>`;
+      // Nők pontjai
+      womenDet.forEach(w => {
+        const age=w.age;
+        if (age<15||age>49) return;
+        const x=xScale(age), yExp=yScale(w.expected), yAct=yScale(Math.min(w.actual,2.15));
+        html+=`<line x1="${x}" y1="${yExp}" x2="${x}" y2="${yAct}" stroke="rgba(249,123,79,0.25)" stroke-width="1"/>`;
+        html+=`<circle cx="${x}" cy="${yExp}" r="4" fill="var(--surface)" stroke="rgba(249,123,79,0.85)" stroke-width="2"/>`;
+        const col=w.ratio>=0.95?'#52c78a':w.ratio>=0.6?'#f9c44f':'#f96b6b';
+        html+=`<circle cx="${x}" cy="${yAct}" r="5" fill="${col}" opacity="0.85"/>`;
       });
 
-      const lx = W - 200, ly = pad.top + 10;
-      html += `<rect x="${lx}" y="${ly}" width="180" height="62" rx="5" fill="rgba(23,27,38,0.9)" stroke="#2a3050" stroke-width="1"/>`;
-      html += `<line x1="${lx + 10}" y1="${ly + 16}" x2="${lx + 32}" y2="${ly + 16}" stroke="rgba(79,156,249,0.7)" stroke-width="2.5"/>`;
-      html += `<text x="${lx + 38}" y="${ly + 20}" font-size="9" fill="#8b93b0" font-family="monospace">NO 1975 kohorsz görbe</text>`;
-      html += `<circle cx="${lx + 20}" cy="${ly + 34}" r="4" fill="var(--surface)" stroke="rgba(79,156,249,0.9)" stroke-width="2"/>`;
-      html += `<text x="${lx + 38}" y="${ly + 38}" font-size="9" fill="#8b93b0" font-family="monospace">Elvárt (korhoz igazított)</text>`;
-      html += `<circle cx="${lx + 20}" cy="${ly + 52}" r="5" fill="#52c78a" opacity="0.85"/>`;
-      html += `<text x="${lx + 38}" y="${ly + 56}" font-size="9" fill="#8b93b0" font-family="monospace">Tényleges gyerekszám</text>`;
+      // Férfiak pontjai
+      menDet.forEach(m => {
+        const age=m.age;
+        if (age<15||age>54) return;
+        const x=xScale(age), yExp=yScale(m.expected), yAct=yScale(Math.min(m.actual,2.15));
+        html+=`<line x1="${x}" y1="${yExp}" x2="${x}" y2="${yAct}" stroke="rgba(79,156,249,0.25)" stroke-width="1"/>`;
+        html+=`<circle cx="${x}" cy="${yExp}" r="4" fill="var(--surface)" stroke="rgba(79,156,249,0.85)" stroke-width="2"/>`;
+        const col=m.ratio>=0.95?'#52c78a':m.ratio>=0.6?'#f9c44f':'#f96b6b';
+        // Négyzet a férfiaknál, megkülönböztetésre
+        const s=5;
+        html+=`<rect x="${x-s}" y="${yAct-s}" width="${2*s}" height="${2*s}" rx="2" fill="${col}" opacity="0.85"/>`;
+      });
 
       svg.innerHTML = html;
     }
 
-    // Init: 5 empty rows
-    window.onload = () => {
-      for (let i = 0; i < 5; i++) addRow();
-    };
+    window.onload = () => { for (let i=0;i<5;i++) addRow(); };
   </script>
-</body>
 
+</body>
 </html>
