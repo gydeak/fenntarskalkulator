@@ -236,6 +236,66 @@
     .chip-warn { background: rgba(249,196,79,0.15); color: var(--amber); }
     .chip-bad { background: rgba(249,107,107,0.15); color: var(--red); }
 
+    /* Breakdown táblázat – mobil card nézet */
+    @media (max-width: 700px) {
+      .breakdown-table thead { display: none; }
+      .breakdown-table tbody { display: block; }
+      .breakdown-table tr {
+        display: grid;
+        grid-template-columns: auto 1fr 1fr auto;
+        grid-template-rows: auto auto auto;
+        gap: 3px 10px;
+        align-items: center;
+        border-bottom: 1px solid var(--border);
+        padding: 10px 12px;
+      }
+      .breakdown-table tr:last-child { border-bottom: none; }
+      .breakdown-table td { padding: 0; border: none; font-size: 11px; }
+
+      /* # sorszám */
+      .breakdown-table td:nth-child(1) {
+        grid-column: 1; grid-row: 1;
+        font-size: 10px; color: var(--text2); min-width: 18px;
+      }
+      /* Születési év */
+      .breakdown-table td:nth-child(2) {
+        grid-column: 2; grid-row: 1;
+        font-size: 13px; font-weight: 700; color: var(--text);
+      }
+      /* Jelenlegi kor */
+      .breakdown-table td:nth-child(3) {
+        grid-column: 3; grid-row: 1;
+        font-size: 11px; color: var(--text2);
+      }
+      /* Tényleges gyerek */
+      .breakdown-table td:nth-child(4) {
+        grid-column: 1 / 3; grid-row: 2;
+        font-size: 11px; color: var(--text);
+      }
+      .breakdown-table td:nth-child(4)::before { content: 'Tényleges: '; color: var(--text2); }
+      /* Elvárt */
+      .breakdown-table td:nth-child(5) {
+        grid-column: 3 / 5; grid-row: 2;
+        font-size: 11px; color: var(--text2);
+      }
+      .breakdown-table td:nth-child(5)::before { content: 'Elvárt: '; }
+      /* Index % */
+      .breakdown-table td:nth-child(6) {
+        grid-column: 4; grid-row: 1;
+        font-size: 15px; font-weight: 700; text-align: right;
+      }
+      /* Chip állapot */
+      .breakdown-table td:nth-child(7) {
+        grid-column: 1 / 3; grid-row: 3; padding-top: 3px;
+      }
+      /* Progress bar */
+      .breakdown-table td:nth-child(8) {
+        grid-column: 3 / 5; grid-row: 3;
+        width: 100%; padding-top: 6px;
+      }
+      .pct-bar-cell { width: 100%; }
+    }
+
     /* Két görbe kártya */
     .curve-card {
       background: var(--surface); border: 1px solid var(--border);
@@ -313,7 +373,7 @@
       <strong>Módszertan:</strong> Minden munkavállaló jelenlegi kora alapján meghatározzuk, hogy a referencia kohorsz
       ugyanilyen korú tagjai összesen hány gyereket vállaltak. Ez az <em>életkorhoz igazított elvárt gyerekszám</em>.
       A nők referenciája a norvég 1975-ös <strong>női</strong> kohorsz (15–49 év, TTA = 2,027),
-      a férfiaké a norvég 1985/1975/1971-es <strong>férfi</strong> kohorsz (15–54 év, normalizált TTA = 1,950),
+      a férfiaké a norvég 1975-ös <strong>férfi</strong> kohorsz (15–54 év, normalizált TTA = 1,950),
       SSB 08452 adatokból, PCHIP-simítással.
     </div>
 
@@ -609,10 +669,41 @@
     // CALCULATE
     // ============================================================
     function verdictInfo(idx) {
-      if (idx >= 95) return { color:'var(--green)',  text:'✓ Fenntartható' };
-      if (idx >= 70) return { color:'var(--amber)',  text:'⚠ Csökkent' };
-      if (idx >= 45) return { color:'var(--accent2)',text:'▼ Alacsony' };
-      return               { color:'var(--red)',    text:'✗ Kritikus' };
+      if (idx >= 100) return { color:'var(--green)',  text:'✓ Fenntartható' };
+      if (idx >= 85)  return { color:'var(--amber)',  text:'⚠ Alacsony' };
+      return                 { color:'var(--red)',    text:'✗ Kritikus' };
+    }
+
+    // Egyéni státusz: abszolút gyerekszám vs. elvárt küszöbök
+    // needed = floor(expected) = hány egész gyereknek "kellene már" lennie
+    // kritikus: actual < needed  ÉS  needed >= 1   (legalább 1 esedékes gyerek hiányzik)
+    // alacsony: actual == needed ÉS  expected > needed  (a következő küszöb közelít)
+    //           VAGY actual == 0 ÉS  0 < expected < 1   (még nem esedékes, de elmarad)
+    // ok:       actual >= ceil(expected) ha expected törtszám, actual >= expected ha egész
+    function individualStatus(actual, expected) {
+      if (expected < 0.01) {
+        // Még semmi sem várható (nagyon fiatal)
+        return actual > 0
+          ? { cls:'chip-ok',   label:'OK',       barColor:'var(--green)' }
+          : { cls:'chip-ok',   label:'OK',       barColor:'var(--green)' };
+      }
+      const needed = Math.floor(expected);           // esedékes egész gyerekszám
+      const nextThreshold = needed + 1;              // következő küszöb
+
+      if (actual >= nextThreshold) {
+        // Legalább a következő küszöböt is teljesíti
+        return { cls:'chip-ok',   label:'OK',       barColor:'var(--green)' };
+      }
+      if (actual >= needed && needed >= 1) {
+        // Megvan az esedékes minimum, de a következő közelít
+        return { cls:'chip-warn', label:'Alacsony', barColor:'var(--amber)' };
+      }
+      if (needed === 0) {
+        // expected < 1: még nem kellene 1 gyerek, de a görbe már emelkedik
+        return { cls:'chip-warn', label:'Alacsony', barColor:'var(--amber)' };
+      }
+      // actual < needed ÉS needed >= 1: legalább 1 esedékes gyerek hiányzik
+      return { cls:'chip-bad',  label:'Kritikus', barColor:'var(--red)' };
     }
 
     function setMeter(valEl, cardEl, subEl, verdictEl, idx, actual, expected) {
@@ -731,9 +822,7 @@
       }
       details.sort((a,b)=>a.by-b.by).forEach((w,i) => {
         const pct = Math.min(w.ratio*100, 200);
-        const chipClass = w.ratio>=0.95?'chip-ok': w.ratio>=0.6?'chip-warn':'chip-bad';
-        const chipText  = w.ratio>=0.95?'OK': w.ratio>=0.6?'Alacsony':'Kritikus';
-        const barColor  = w.ratio>=0.95?'var(--green)': w.ratio>=0.6?'var(--amber)':'var(--red)';
+        const { cls: chipClass, label: chipText, barColor } = individualStatus(w.actual, w.expected);
         tbody.innerHTML += `
           <tr>
             <td class="mono row-num">${i+1}</td>
@@ -828,8 +917,9 @@
         const x=xScale(age), yExp=yScale(w.expected), yAct=yScale(Math.min(w.actual,2.15));
         html+=`<line x1="${x}" y1="${yExp}" x2="${x}" y2="${yAct}" stroke="rgba(249,123,79,0.25)" stroke-width="1"/>`;
         html+=`<circle cx="${x}" cy="${yExp}" r="4" fill="var(--surface)" stroke="rgba(249,123,79,0.85)" stroke-width="2"/>`;
-        const col=w.ratio>=0.95?'#52c78a':w.ratio>=0.6?'#f9c44f':'#f96b6b';
-        html+=`<circle cx="${x}" cy="${yAct}" r="5" fill="${col}" opacity="0.85"/>`;
+        const { barColor: col } = individualStatus(w.actual, w.expected);
+        const colVal = col.replace('var(--green)','#52c78a').replace('var(--amber)','#f9c44f').replace('var(--red)','#f96b6b');
+        html+=`<circle cx="${x}" cy="${yAct}" r="5" fill="${colVal}" opacity="0.85"/>`;
       });
 
       // Férfiak pontjai
@@ -839,10 +929,10 @@
         const x=xScale(age), yExp=yScale(m.expected), yAct=yScale(Math.min(m.actual,2.15));
         html+=`<line x1="${x}" y1="${yExp}" x2="${x}" y2="${yAct}" stroke="rgba(79,156,249,0.25)" stroke-width="1"/>`;
         html+=`<circle cx="${x}" cy="${yExp}" r="4" fill="var(--surface)" stroke="rgba(79,156,249,0.85)" stroke-width="2"/>`;
-        const col=m.ratio>=0.95?'#52c78a':m.ratio>=0.6?'#f9c44f':'#f96b6b';
-        // Négyzet a férfiaknál, megkülönböztetésre
+        const { barColor: col } = individualStatus(m.actual, m.expected);
+        const colVal = col.replace('var(--green)','#52c78a').replace('var(--amber)','#f9c44f').replace('var(--red)','#f96b6b');
         const s=5;
-        html+=`<rect x="${x-s}" y="${yAct-s}" width="${2*s}" height="${2*s}" rx="2" fill="${col}" opacity="0.85"/>`;
+        html+=`<rect x="${x-s}" y="${yAct-s}" width="${2*s}" height="${2*s}" rx="2" fill="${colVal}" opacity="0.85"/>`;
       });
 
       svg.innerHTML = html;
