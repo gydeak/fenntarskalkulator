@@ -350,7 +350,7 @@
       <a href="https://www.fenntars.hu/" target="_blank" style="color:var(--accent);text-decoration:underline;">fenntars.hu</a>
     </h1>
     <p>A munkavállalók tényleges gyermekvállalási adatait az <em>1975-ös születésű norvég kohorsz</em> kumulatív termékenységi görbéjével hasonlítja össze — nőkre és férfiakra egyaránt. Az adatok forrása: Eurostat / SSB.</p>
-    <div class="reference-tag">Referencia: NO 1975-ös kohorsz · Nő TTA = 2,027 · Férfi TTA = 1,950</div>
+    <div class="reference-tag">Referencia: NO 1975-ös kohorsz · Nő TTA = 2,027 · Férfi TTA = 2,027</div>
   </div>
 
   <div class="main">
@@ -373,7 +373,7 @@
       <strong>Módszertan:</strong> Minden munkavállaló jelenlegi kora alapján meghatározzuk, hogy a referencia kohorsz
       ugyanilyen korú tagjai összesen hány gyereket vállaltak. Ez az <em>életkorhoz igazított elvárt gyerekszám</em>.
       A nők referenciája a norvég 1975-ös <strong>női</strong> kohorsz (15–49 év, TTA = 2,027),
-      a férfiaké a norvég 1975-ös <strong>férfi</strong> kohorsz (15–54 év, normalizált TTA = 1,950),
+      a férfiaké a norvég 1975-ös <strong>férfi</strong> kohorsz (15–54 év, normalizált TTA = 2,027),
       SSB 08452 adatokból, PCHIP-simítással.
     </div>
 
@@ -567,16 +567,16 @@
     };
 
     // FÉRFI görbe: NO 1975-ös kohorsz, SSB 08452, PCHIP-simított, normalizált
-    // (férfi 54 éves kumulatív = 1,950 ≈ befejezett TTA)
+    // (férfi 54 éves kumulatív = 2,027 ≈ befejezett TTA)
     const NO1975_MALE = {
-      15:0.00000, 16:0.00000, 17:0.00228, 18:0.00727, 19:0.01681,
-      20:0.03239, 21:0.05503, 22:0.08543, 23:0.12654, 24:0.18221,
-      25:0.25391, 26:0.34062, 27:0.43888, 28:0.54643, 29:0.66307,
-      30:0.78755, 31:0.91751, 32:1.04954, 33:1.17814, 34:1.29793,
-      35:1.40580, 36:1.50088, 37:1.58452, 38:1.65738, 39:1.71863,
-      40:1.76846, 41:1.80818, 42:1.84014, 43:1.86613, 44:1.88677,
-      45:1.90282, 46:1.91517, 47:1.92484, 48:1.93244, 49:1.93814,
-      50:1.94231, 51:1.94543, 52:1.94817, 53:1.95052, 54:1.95013,
+      15:0.00000, 16:0.00000, 17:0.00237249, 18:0.007552035, 19:0.01747656,
+      20:0.03366117, 21:0.0571981, 22:0.0887922, 23:0.13152051, 24:0.189388125,
+      25:0.26391015, 26:0.354029535, 27:0.456164055, 28:0.567952965, 29:0.689184855,
+      30:0.818567775, 31:0.95364702, 32:1.0908756, 33:1.2245337, 34:1.349042445,
+      35:1.461160215, 36:1.559982645, 37:1.646919135, 38:1.722650895, 39:1.786308795,
+      40:1.838104245, 41:1.87938792, 42:1.91260278, 43:1.93961628, 44:1.961074395,
+      45:1.977752295, 46:1.99058958, 47:2.0006433, 48:2.00853594, 49:2.014467165,
+      50:2.01880107, 51:2.02204269, 52:2.02488498, 53:2.02732794, 54:2.02692861,
     };
 
     const COMPLETED_TFR_F = 2.027;
